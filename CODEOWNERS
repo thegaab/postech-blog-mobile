@@ -1,0 +1,6 @@
+# Neste arquivo podemos setar partes sensíveis do código que para ser alterada precisa da aprovação de um ou mais "donos do código" (code owners)
+Exemplo:
+
+README.md @thegaab
+
+# Assim o readme.md só pode ser alterado com aprovação de um determinado usúario
