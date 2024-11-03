@@ -60,7 +60,8 @@ const Input = ({
           )
         }
         _dark={{
-          backgroundColor: "warmGray.700",
+          backgroundColor: "warmGray.500",
+          placeholderTextColor: "warmGray.300",
           _focus: {
             borderColor: "primary.500",
             borderWidth: "2",

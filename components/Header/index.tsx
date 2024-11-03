@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <Box className="flex justify-center items-center h-16 bg-stone-800 px-2 w-full">
       <Box className="flex flex-row justify-between items-center w-full">
-        <Heading size="md" color="primary.400">
+        <Heading size="md" color="primary.600">
           PosTech
         </Heading>
         <Button onPress={() => navigate.to("login")}>Login</Button>
