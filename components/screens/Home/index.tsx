@@ -1,12 +1,13 @@
 import { useNavigate } from "@/ui/navigation";
-import { Button, Text, View } from "react-native";
+import { Text } from "react-native";
+import { Button, Box } from "native-base";
 
 export function HomeScreen() {
   const navigate = useNavigate();
   return (
-    <View className="flex justify-center items-center h-full bg-teal-800">
+    <Box className="flex justify-center items-center h-full bg-teal-800 w-full">
       <Text className="text-white">Hello World</Text>
-      <Button title="go to Login" onPress={() => navigate.to("login")} />
-    </View>
+      <Button onPress={() => navigate.to("login")}>Go to Login</Button>
+    </Box>
   );
 }
