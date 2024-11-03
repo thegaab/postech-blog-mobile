@@ -6,6 +6,7 @@ import { PostInterface } from "@/types";
 import getPublicPosts from "@/api/getPosts";
 import SearchBar from "@/components/SearchBar";
 import Text from "@/components/base/Text";
+import PublicPostPreview from "@/components/PublicPostPreview";
 
 export function HomeScreen() {
   const [posts, setPosts] = useState<PostInterface[]>([]);
@@ -41,9 +42,9 @@ export function HomeScreen() {
           {!requestPosts.loading &&
             posts.length >= 1 &&
             posts.map((post) => (
-              <Text className="my-2" key={post.id}>
-                {post.title}
-              </Text>
+              <Box key={post.id} className="w-full my-2">
+                <PublicPostPreview title={post.title} />
+              </Box>
             ))}
         </Box>
         <Box className="w-full flex flex-row justify-center gap-2">
