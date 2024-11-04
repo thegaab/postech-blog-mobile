@@ -1,8 +1,10 @@
 import { useNavigate } from "@/ui/navigation";
+import { useSessionContext } from "@/ui/providers/authProvider";
 import { Box, Button, Heading } from "native-base";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { isLogged, logout } = useSessionContext();
 
   return (
     <Box className="flex justify-center items-center h-16 bg-stone-800 px-2 w-full">
@@ -10,7 +12,13 @@ const Header = () => {
         <Heading size="md" color="primary.600">
           PosTech
         </Heading>
-        <Button onPress={() => navigate.to("login")}>Login</Button>
+        {isLogged ? (
+          <Button colorScheme="secondary" onPress={logout}>
+            Logout
+          </Button>
+        ) : (
+          <Button onPress={() => navigate.to("login")}>Login</Button>
+        )}
       </Box>
     </Box>
   );
