@@ -30,7 +30,7 @@ export default function apiRequest(
   const requestParams = {
     headers: requestHeaders,
     method: method,
-    body: body,
+    body: body ? JSON.stringify(body) : "",
   };
 
   const submitRequest = async () => {
