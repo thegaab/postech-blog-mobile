@@ -43,7 +43,7 @@ export function HomeScreen() {
             posts.length >= 1 &&
             posts.map((post) => (
               <Box key={post.id} className="w-full my-2">
-                <PublicPostPreview title={post.title} />
+                <PublicPostPreview post={post} />
               </Box>
             ))}
         </Box>
