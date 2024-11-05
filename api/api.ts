@@ -1,3 +1,5 @@
+import { TeacherAuth } from "@/types/apiResponse";
+import { getToken } from "@/ui/services/storage";
 import { useState } from "react";
 
 type RequestMethods = "GET" | "POST" | "PUT" | "DELETE";
@@ -23,18 +25,16 @@ export default function apiRequest(
     "Content-Type": "application/json",
   };
 
-  // if (token) {
-  //   requestHeaders.append("Authorization", `Bearer ${cookie.token}`);
-  // }
-
-  const requestParams = {
-    headers: requestHeaders,
-    method: method,
-    body: body ? JSON.stringify(body) : "",
-  };
-
   const submitRequest = async () => {
+    const currAuth: TeacherAuth = await getToken();
     setIsLoading(true);
+
+    const requestParams = {
+      headers: { ...requestHeaders, Authorization: `Bearer ${currAuth.token}` },
+      method: method,
+      body: body ? JSON.stringify(body) : "",
+    };
+
     try {
       const res = await fetch(
         `https://postech-blog-api.onrender.com${path}`,
