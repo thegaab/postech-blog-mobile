@@ -30,7 +30,10 @@ export default function apiRequest(
     setIsLoading(true);
 
     const requestParams = {
-      headers: { ...requestHeaders, Authorization: `Bearer ${currAuth.token}` },
+      headers: {
+        ...requestHeaders,
+        Authorization: `Bearer ${currAuth?.token ?? ""}`,
+      },
       method: method,
       body: body ? JSON.stringify(body) : "",
     };
