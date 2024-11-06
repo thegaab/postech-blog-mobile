@@ -1,4 +1,4 @@
-import { Box, Button, FlatList, Heading } from "native-base";
+import { Box, Button, Divider, FlatList, Heading } from "native-base";
 import Text from "../base/Text";
 import { ReactElement, useState } from "react";
 import { useNavigate } from "@/ui/navigation";
@@ -19,7 +19,6 @@ interface ListProps<T extends Identifiable> {
   currentPage: number;
   totalPages: number;
   nextPage: () => void;
-  prevPage: () => void;
 }
 
 const List = <T extends Identifiable>({
@@ -33,7 +32,6 @@ const List = <T extends Identifiable>({
   currentPage,
   totalPages,
   nextPage,
-  prevPage,
 }: ListProps<T>): JSX.Element => {
   const navigate = useNavigate();
 
@@ -57,42 +55,34 @@ const List = <T extends Identifiable>({
           )
         }
         ListEmptyComponent={
-          !isLoading ? (
-            emptyListComponent ?? (
-              <Text>Não encontramos resultados para essa busca</Text>
-            )
-          ) : (
-            <></>
-          )
+          !isLoading
+            ? emptyListComponent ?? (
+                <Text>Não encontramos resultados para essa busca</Text>
+              )
+            : null
         }
         ListFooterComponent={
-          totalPages > 1 ? (
-            <>
-              {isLoading && <Box className="mt-3">Loading ...</Box>}
-              <Box className="flex flex-row w-full justify-between px-4 pb-8 gap-4 mt-8">
+          <>
+            {isLoading && <Box className="mt-3 mx-auto">Loading ...</Box>}
+            {currentPage !== totalPages && (
+              <Box className="flex flex-row w-full justify-center px-4 pb-8 gap-4 mt-8">
                 <Button
                   variant="subtle"
-                  className="w-2/5"
-                  colorScheme="tertiary"
-                  onPress={prevPage}
-                  disabled={currentPage === 1}
-                >
-                  Anterior
-                </Button>
-                <Button
-                  variant="subtle"
-                  className="w-2/5"
+                  className="w-3/4"
                   colorScheme="tertiary"
                   onPress={nextPage}
                   disabled={currentPage === totalPages}
                 >
-                  Próxima
+                  Ver mais
                 </Button>
               </Box>
-            </>
-          ) : (
-            <></>
-          )
+            )}
+            {!isLoading && currentPage === totalPages && (
+              <Box className="mt-6 w-1/3 mx-auto">
+                <Divider />
+              </Box>
+            )}
+          </>
         }
       />
     </Box>

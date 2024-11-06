@@ -35,7 +35,6 @@ export function HomeScreen() {
             component={PublicPostPreview}
             currentPage={page}
             totalPages={maxPages}
-            prevPage={() => setPage(page - 1)}
             nextPage={() => setPage(page + 1)}
           />
         </Box>
