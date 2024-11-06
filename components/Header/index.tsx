@@ -21,7 +21,9 @@ const Header = () => {
             Logout
           </Button>
         ) : (
-          <Button onPress={() => navigate.to("login")}>Login</Button>
+          <Button colorScheme="secondary" onPress={() => navigate.to("login")}>
+            Login
+          </Button>
         )}
       </Box>
     </Box>
