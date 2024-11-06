@@ -10,5 +10,6 @@ export const useNavigate = () => {
 
   return {
     to: goToPage,
+    back: navigation.goBack,
   };
 };
