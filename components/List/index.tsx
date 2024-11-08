@@ -1,8 +1,7 @@
 import { Box, Button, Divider, FlatList, Heading } from "native-base";
 import Text from "../base/Text";
-import { ReactElement, useState } from "react";
+import { ReactElement } from "react";
 import { useNavigate } from "@/ui/navigation";
-import SearchBar from "../SearchBar";
 
 interface Identifiable {
   id: string;
@@ -11,9 +10,7 @@ interface Identifiable {
 interface ListProps<T extends Identifiable> {
   items: T[];
   isLoading: boolean;
-  searchFunc?: () => void;
-  searchTerm?: string;
-  onChangeSearchTerm?: (s: string) => void;
+  customHeader?: ReactElement;
   component: React.FC<{ item: T }>;
   emptyListComponent?: ReactElement;
   currentPage: number;
@@ -24,10 +21,8 @@ interface ListProps<T extends Identifiable> {
 const List = <T extends Identifiable>({
   items,
   isLoading,
-  searchFunc,
-  searchTerm = "",
-  onChangeSearchTerm,
   component: Component,
+  customHeader,
   emptyListComponent,
   currentPage,
   totalPages,
@@ -39,33 +34,34 @@ const List = <T extends Identifiable>({
     <Box className="w-full">
       <FlatList
         data={items}
-        renderItem={({ item }) => (
-          <Box className="w-full my-1" key={item.id}>
+        renderItem={({ item, index }) => (
+          <Box className="w-full my-1" key={`${item.id}-${index}`}>
             <Component item={item} />
           </Box>
         )}
-        keyExtractor={(item) => item.id}
-        ListHeaderComponent={
-          !!searchFunc && !!onChangeSearchTerm ? (
-            <Box className="w-full mb-8">
-              <SearchBar value={searchTerm} onChange={onChangeSearchTerm} />
-            </Box>
-          ) : (
-            <Heading className="mb-6">Let's learn</Heading>
-          )
-        }
+        keyExtractor={(item, index) => `${item.id}-${index}`}
+        ListHeaderComponent={!!customHeader ? customHeader : undefined}
         ListEmptyComponent={
           !isLoading
             ? emptyListComponent ?? (
-                <Text>Não encontramos resultados para essa busca</Text>
+                <Text key="empty">
+                  Não encontramos resultados para essa busca
+                </Text>
               )
             : null
         }
         ListFooterComponent={
-          <>
-            {isLoading && <Box className="mt-3 mx-auto">Loading ...</Box>}
+          <Box className="mt-8">
+            {isLoading && (
+              <Box key="loading" className="mx-auto">
+                Loading ...
+              </Box>
+            )}
             {currentPage !== totalPages && (
-              <Box className="flex flex-row w-full justify-center px-4 pb-8 gap-4 mt-8">
+              <Box
+                key="action"
+                className="flex flex-row w-full justify-center px-4 pb-8 gap-4"
+              >
                 <Button
                   variant="subtle"
                   className="w-3/4"
@@ -78,11 +74,11 @@ const List = <T extends Identifiable>({
               </Box>
             )}
             {!isLoading && currentPage === totalPages && (
-              <Box className="mt-6 w-1/3 mx-auto">
+              <Box className="w-1/3 mx-auto">
                 <Divider />
               </Box>
             )}
-          </>
+          </Box>
         }
       />
     </Box>
