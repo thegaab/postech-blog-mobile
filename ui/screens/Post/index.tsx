@@ -33,8 +33,9 @@ export function PostScreen({ postId }: PostScreenProps) {
           <Text>Não encontramos esse post</Text>
         )}
         {!requestPosts.loading && post && (
-          <Box>
-            <Text>{post?.title}</Text>
+          <Box className="px-4">
+            <Text className="pb-4 text-4xl">{post?.title}</Text>
+            <Text className="text-wrap text-justify">{post?.text}</Text>
           </Box>
         )}
       </Box>
