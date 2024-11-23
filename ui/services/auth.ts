@@ -19,19 +19,13 @@ export async function getUserFn(): Promise<Teacher | undefined> {
 export async function handleUserResponse(loginAuth?: TeacherAuth) {
   const currAuth: TeacherAuth = await getToken();
 
-  console.log("currAuth", currAuth);
-
   const auth: TeacherAuth = loginAuth ?? currAuth;
-
-  console.log("auth", auth);
 
   if (!auth) {
     await clearToken();
     throw new Error("Não foi possivel confirmar suas credenciais");
   }
   const authIsValid = isTokenValid(auth.expireAt);
-
-  console.log("authIsValid", authIsValid);
 
   if (!authIsValid) {
     await clearToken();
@@ -41,8 +35,6 @@ export async function handleUserResponse(loginAuth?: TeacherAuth) {
   setToken(auth);
 
   const user = (await getUserFn()) as Teacher;
-
-  console.log("user", user);
 
   return user;
 }
