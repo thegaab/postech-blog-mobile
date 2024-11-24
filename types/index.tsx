@@ -36,3 +36,8 @@ export interface PostInterface {
   text: string;
   keyWords: string[];
 }
+
+export type UpdatePostInterface = Pick<
+  PostInterface,
+  "title" | "text" | "keyWords"
+>;
