@@ -50,9 +50,8 @@ export const SessionProvider = ({
     if (!auth) return;
 
     await handleUserResponse(auth).then((res) => {
-      console.log("handleUserResponse", res);
       setUser(res);
-      navigate.to("home");
+      navigate.to("admin");
     });
   };
 
