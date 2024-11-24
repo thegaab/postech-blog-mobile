@@ -18,6 +18,7 @@ const Input = ({
   name,
   type = "text",
   helpText,
+  InputRightElement,
   ...props
 }: InputProps) => {
   const [hideValue, setHideValue] = useState<boolean>(
@@ -44,7 +45,9 @@ const Input = ({
         className="w-full"
         type={hideValue ? type : "text"}
         InputRightElement={
-          type === "password" ? (
+          InputRightElement ? (
+            InputRightElement
+          ) : type === "password" ? (
             <Button
               size="xs"
               rounded="none"
@@ -55,9 +58,7 @@ const Input = ({
             >
               <HideIcon />
             </Button>
-          ) : (
-            <></>
-          )
+          ) : undefined
         }
         _dark={{
           backgroundColor: "warmGray.500",
