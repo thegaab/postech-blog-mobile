@@ -1,4 +1,4 @@
-import { Box, Button } from "native-base";
+import { Box, Button, Spinner } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
 import { useEffect, useState } from "react";
 import { PostInterface } from "@/types";
@@ -29,12 +29,20 @@ export function PostScreen({ postId }: PostScreenProps) {
 
   const handleGoBack = () => {
     navigation.goBack();
-  }
+  };
 
   return (
     <BaseTemplate>
       <Box className="pt-8">
-        {requestPosts.loading && <Text>Loading...</Text>}
+        {requestPosts.loading && (
+          <Box>
+            <Spinner
+              className="mx-auto flex flex-row items-center justify-center gap-2"
+              size="sm"
+            />{" "}
+            <Text>Loading ...</Text>
+          </Box>
+        )}
 
         {!requestPosts.loading && !post && (
           <Text>Não encontramos esse post</Text>
@@ -46,7 +54,7 @@ export function PostScreen({ postId }: PostScreenProps) {
             </Text>
 
             <Text fontSize="md" mb={2}>
-               {post?.text} 
+              {post?.text}
             </Text>
 
             <Text fontSize="sm" color="gray.500" mb={4}>
