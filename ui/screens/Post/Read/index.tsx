@@ -5,6 +5,8 @@ import { PostInterface } from "@/types";
 import Text from "@/components/base/Text";
 import getPublicOnePost from "@/api/getPost";
 import { useNavigation } from "@react-navigation/native";
+import { useNavigate } from "@/ui/navigation";
+import { useSessionContext } from "@/ui/providers/authProvider";
 
 interface PostScreenProps {
   postId: string;
@@ -12,7 +14,8 @@ interface PostScreenProps {
 
 export function PostScreen({ postId }: PostScreenProps) {
   const [post, setPost] = useState<PostInterface | undefined>();
-  const navigation = useNavigation();
+  const navigate = useNavigate();
+  const { isLogged } = useSessionContext();
 
   const requestPosts = getPublicOnePost(postId);
 
@@ -27,10 +30,6 @@ export function PostScreen({ postId }: PostScreenProps) {
     getPosts();
   }, []);
 
-  const handleGoBack = () => {
-    navigation.goBack();
-  }
-
   return (
     <BaseTemplate>
       <Box className="pt-8">
@@ -42,18 +41,27 @@ export function PostScreen({ postId }: PostScreenProps) {
         {!requestPosts.loading && post && (
           <Box>
             <Text fontWeight="bold" fontSize="xl" mb={4}>
-              {post?.title}
+              {post.title}
             </Text>
+            <Box>
+              <Text fontSize="sm" color="gray.500" mb={4}>
+                Autor: {post.authorName}
+              </Text>
+              {isLogged && (
+                <Button
+                  size={"xs"}
+                  onPress={() => navigate.to("post", { postId: post.id })}
+                >
+                  Editar
+                </Button>
+              )}
+            </Box>
 
             <Text fontSize="md" mb={2}>
-               {post?.text} 
+              {post?.text}
             </Text>
 
-            <Text fontSize="sm" color="gray.500" mb={4}>
-              Autor: {post?.authorName}
-            </Text>
-
-            <Button onPress={handleGoBack} colorScheme="blue">
+            <Button onPress={navigate.back} colorScheme="blue">
               Voltar
             </Button>
           </Box>
