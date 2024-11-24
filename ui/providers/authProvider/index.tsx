@@ -50,15 +50,15 @@ export const SessionProvider = ({
     if (!auth) return;
 
     await handleUserResponse(auth).then((res) => {
-      console.log("handleUserResponse", res);
       setUser(res);
-      navigate.to("home");
+      navigate.to("admin");
     });
   };
 
   const logout = () => {
     setUser(undefined);
     storage.clearToken();
+    navigate.to("home");
   };
 
   const authenticate = (auth: TeacherAuth) => {
