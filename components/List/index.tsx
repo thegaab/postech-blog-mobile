@@ -1,4 +1,4 @@
-import { Box, Button, Divider, FlatList, Heading } from "native-base";
+import { Box, Button, Divider, FlatList, Spinner } from "native-base";
 import Text from "../base/Text";
 import { ReactElement } from "react";
 import { useNavigate } from "@/ui/navigation";
@@ -53,8 +53,11 @@ const List = <T extends Identifiable>({
         ListFooterComponent={
           <Box className="mt-8">
             {isLoading && (
-              <Box key="loading" className="mx-auto">
-                Loading ...
+              <Box
+                key="loading"
+                className="mx-auto flex flex-row items-center justify-center gap-2"
+              >
+                <Spinner size="sm" /> <Text>Loading ...</Text>
               </Box>
             )}
             {currentPage !== totalPages && (
