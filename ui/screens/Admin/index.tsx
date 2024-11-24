@@ -53,9 +53,12 @@ export function AdminScreen() {
 
   return (
     <BaseTemplate>
-      <View className="bg-slate-900 py-8">
-        <Box className="w-full mb-6">
-          <Text>Bem vindo Professor {user.name}</Text>
+      <View className="pt-6">
+        <Box className="w-full">
+          <Box className="mb-3">
+            <Text>Bem vindo</Text>
+            <Text className="">Professor {user.name}</Text>
+          </Box>
           <SearchBar onSearch={handleKeyword} />
         </Box>
       </View>
