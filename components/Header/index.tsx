@@ -1,6 +1,7 @@
 import { useNavigate } from "@/ui/navigation";
 import { useSessionContext } from "@/ui/providers/authProvider";
 import { Box, Button, Heading } from "native-base";
+import { Menu } from "../Menu";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -17,9 +18,7 @@ const Header = () => {
           PosTech
         </Heading>
         {isLogged ? (
-          <Button colorScheme="secondary" onPress={logout}>
-            Logout
-          </Button>
+          <Menu />
         ) : (
           <Button colorScheme="secondary" onPress={() => navigate.to("login")}>
             Login
