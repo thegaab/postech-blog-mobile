@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../routes/app.routes";
 
-type PageName = keyof RootStackParamList;
+export type PageName = keyof RootStackParamList;
 
 export const useNavigate = () => {
   const navigation = useNavigation();
