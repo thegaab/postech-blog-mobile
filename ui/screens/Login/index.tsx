@@ -48,6 +48,10 @@ export function LoginScreen() {
         <Button colorScheme="secondary" onPress={() => navigate.to("home")}>
           Usar deslogado
         </Button>
+
+        <Button colorScheme="secondary" onPress={() => navigate.to("createStudent")}>
+          Criar usuario aluno
+        </Button>
       </Box>
     </BaseTemplate>
   );
