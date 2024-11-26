@@ -54,7 +54,7 @@ export function EditPostScreen({ postId }: PostScreenProps) {
       console.log("Post atualizado com sucesso:", updatedPost);
 
       // Após salvar, navegue para a tela do post editado
-      navigation.navigate("post", { postId }); // Navegação corrigida
+      navigation.navigate("post", { postId });
     } catch (error) {
       console.error("Erro ao atualizar post:", error);
     } finally {
@@ -63,7 +63,6 @@ export function EditPostScreen({ postId }: PostScreenProps) {
   };
 
   // Busca os dados do post ao carregar o componente
-
   useEffect(() => {
     if (postTitle === undefined && postContent === undefined) {
       getPostContent();
@@ -73,17 +72,11 @@ export function EditPostScreen({ postId }: PostScreenProps) {
   return (
     <BaseTemplate>
       <Box className="pt-8 px-6">
-        {/* Botão de Voltar */}
-        <Button
-          onPress={() => navigation.goBack()}
-          className="mb-6"
-          variant="link"
-        >
-          Voltar
-        </Button>
+        
+        
 
-        <Text className="text-xl font-bold mb-4">
-          Edição de <Text className="text-primary-700">post</Text>
+        <Text className="text-xl font-bold mb-4" fontSize="lg">
+          Edição de <Text className="text-primary-700" >Post</Text>
         </Text>
 
         {loading ? (
@@ -96,7 +89,7 @@ export function EditPostScreen({ postId }: PostScreenProps) {
               value={postTitle}
               onChangeText={(text) => setPostTitle(text)}
               className="mb-4"
-              fontSize="lg" 
+              fontSize="lg"
             />
 
             {/* Input para o conteúdo */}
@@ -117,8 +110,15 @@ export function EditPostScreen({ postId }: PostScreenProps) {
               value={keyWords}
               onChangeText={(text) => setKeywords(text)}
               className="mb-4"
-              fontSize="lg"
+              fontSize="lg" 
             />
+            {/*Botão para voltar */}
+            <Button
+              onPress={() => navigation.goBack()}
+              className="mb-6"
+              colorScheme="blue">
+              Cancelar alterações e voltar
+            </Button>
 
             {/* Botão para salvar */}
             <Button

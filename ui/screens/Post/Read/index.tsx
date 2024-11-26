@@ -47,23 +47,25 @@ export function PostScreen({ postId }: PostScreenProps) {
               <Text fontSize="sm" color="gray.500" mb={4}>
                 Autor: {post.authorName}
               </Text>
-              {isLogged && (
-                <Button
-                  size={"xs"}
-                  onPress={() => navigate.to("post", { postId: post.id })}
-                >
-                  Editar
-                </Button>
-              )}
+              
             </Box>
 
             <Text fontSize="md" mb={2}>
               {post?.text}
             </Text>
 
-            <Button onPress={navigate.back} colorScheme="blue">
+            <Button onPress={()=> navigate.to("home")} colorScheme="blue" marginBottom={2}>
               Voltar
             </Button>
+
+            {isLogged && (
+                <Button
+                  onPress={() => navigate.to("postUpdate", { postId: post.id })}>
+                  Editar
+                </Button>
+              )}
+
+            
           </Box>
         )}
       </Box>
