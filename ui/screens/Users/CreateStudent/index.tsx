@@ -7,8 +7,7 @@ import Input from "@/components/base/Input";
 
 export default function CreateStudentScreen() {
   const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [grade, setGrade] = useState("");
 
   const handleCreateStudent = async () => {
     if (!name.trim()) {
@@ -17,7 +16,7 @@ export default function CreateStudentScreen() {
     }
 
     try {
-      const studentData = { name, username: username || undefined, password: password || undefined };
+      const studentData = { name, grade: grade || undefined };
       const res = await postStudent(studentData).submit();
       Alert.alert("Sucesso", `Aluno criado: ${res.name}`);
     } catch (error) {
@@ -42,17 +41,10 @@ export default function CreateStudentScreen() {
                 onChangeText={(v: string) => setName(v)}
               />
               <Input
-                label="Usuário"
-                name="username"
-                value={username}
-                onChangeText={(v: string) => setUsername(v)}
-              />
-              <Input
-                label="Senha"
-                name="username"
-                value={password}
-                type="password"
-                onChangeText={(v: string) => setPassword(v)}
+                label="Grade"
+                name="grade"
+                value={grade}
+                onChangeText={(v: string) => setGrade(v)}
               />
 
               <Button onPress={handleCreateStudent} className="mt-3">

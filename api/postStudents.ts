@@ -3,8 +3,7 @@ import { SuccessResponse } from "@/types/apiPatterns";
 
 interface StudentCreateData {
   name: string;
-  username?: string;
-  password?: string;
+  grade: string;
 }
 
 export default function postStudent(studentData: StudentCreateData) {
