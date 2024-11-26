@@ -19,11 +19,7 @@ export function ListTeacherScreen() {
   const handleSubmit = async () => {
     const data = await requestTeachers.submit();
 
-    console.log("RESPONSE ENTAO", data);
-
     if (!data || !data.data) return;
-
-    console.log("data", data.data);
 
     const updateList =
       teachers.length <= 0 ? data.data : [...teachers, ...data.data];
