@@ -34,8 +34,8 @@ export function Menu() {
     >
       <MenuItem label="Home" pageName="home" />
       <MenuItem label="Meus Posts" pageName="admin" />
-      <MenuItem label="Professores (TO DO)" pageName="admin" />
-      <MenuItem label="Alunos (TO DO)" pageName="admin" />
+      <MenuItem label="Professores" pageName="teacherList" />
+      <MenuItem label="Alunos" pageName="studentList" />
       <BaseMenu.Item onPress={logout} className="bg-red-500">
         Logout
       </BaseMenu.Item>

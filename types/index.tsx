@@ -1,3 +1,5 @@
+// Teacher
+
 export interface Teacher {
   id: string;
   username: string;
@@ -5,6 +7,16 @@ export interface Teacher {
 }
 
 export type SessionTeacher = Teacher | Partial<Teacher> | undefined;
+
+// Student
+
+export interface Student {
+  id: string;
+  name: string;
+  grades: number[];
+}
+
+// Post
 
 export interface CreatePostInterface {
   text: string;
