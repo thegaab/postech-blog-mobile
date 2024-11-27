@@ -5,11 +5,13 @@ import Login from "@/app/screens/Login";
 import Post from "@/app/screens/Post";
 import Admin from "@/app/screens/AdminView";
 import ListTeacherView from "@/app/screens/TeachersList";
+import ListStudentView from "@/app/screens/StudentsList";
 
 export type RootStackParamList = {
   home: undefined;
   admin: undefined;
   teacherList: undefined;
+  studentList: undefined;
   login: undefined;
   post: { postId: string };
 };
@@ -23,6 +25,7 @@ export function AppRoutes() {
       <Screen name="home" component={Home} />
       <Screen name="admin" component={Admin} />
       <Screen name="teacherList" component={ListTeacherView} />
+      <Screen name="studentList" component={ListStudentView} />
       <Screen name="post" component={Post} />
       <Screen name="login" component={Login} />
     </Navigator>
