@@ -1,4 +1,4 @@
-import { PostInterface } from "@/types";
+import { Student } from "@/types";
 import apiRequest from "./api";
 import { InterfaceList, SuccessResponse } from "@/types/apiPatterns";
 
@@ -8,8 +8,7 @@ export default function getStudents(page: number, perPage?: number) {
   const req = apiRequest("GET", `/student${getParams}`);
 
   async function submit() {
-    const res: SuccessResponse<InterfaceList<PostInterface>> =
-      await req.submit();
+    const res: SuccessResponse<InterfaceList<Student>> = await req.submit();
 
     const { data } = res;
 

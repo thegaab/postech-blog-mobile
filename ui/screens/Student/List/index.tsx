@@ -1,20 +1,20 @@
-import getTeachers from "@/api/getTeachers";
+import getStudents from "@/api/getStudents";
 import List from "@/components/List";
-import TeacherPreview from "@/components/TeacherPreview";
-import { Teacher } from "@/types";
+import StudentPreview from "@/components/StudentPreview";
+import { Student } from "@/types";
 import { useNavigate } from "@/ui/navigation";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
 import { Box, Heading, View } from "native-base";
 import { useEffect, useState } from "react";
 
 export function ListStudentScreen() {
-  const [students, setStudents] = useState<Teacher[]>([]);
+  const [students, setStudents] = useState<Student[]>([]);
   const [page, setPage] = useState(1);
   const [maxPages, setMaxPages] = useState(1);
 
   const navigate = useNavigate();
 
-  const requestStudents = getTeachers(page);
+  const requestStudents = getStudents(page);
 
   const handleSubmit = async () => {
     const data = await requestStudents.submit();
@@ -45,7 +45,7 @@ export function ListStudentScreen() {
           <List
             items={students}
             isLoading={requestStudents.loading}
-            component={TeacherPreview}
+            component={StudentPreview}
             currentPage={page}
             totalPages={maxPages}
             nextPage={() => setPage(page + 1)}
