@@ -1,5 +1,5 @@
 import { useNavigate } from "@/ui/navigation";
-import { Button, Box, Heading } from "native-base";
+import { Button, Box, Heading, Spinner } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
 import { useState } from "react";
 import Input from "@/components/base/Input";
@@ -41,7 +41,7 @@ export function LoginScreen() {
           />
 
           <Button onPress={() => submit()} className="mt-3">
-            {loginRequest.loading ? "Autenticando..." : "Entrar!"}
+            {loginRequest.loading ? <Spinner color="white" /> : "Entrar!"}
           </Button>
         </Box>
 

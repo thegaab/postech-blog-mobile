@@ -1,12 +1,12 @@
-import { Box, Button } from "native-base";
-import BaseTemplate from "@/ui/templates/BaseTemplate";
 import { useEffect, useState } from "react";
 import { PostInterface } from "@/types";
-import Text from "@/components/base/Text";
-import getPublicOnePost from "@/api/getPost";
-import { useNavigation } from "@react-navigation/native";
 import { useNavigate } from "@/ui/navigation";
 import { useSessionContext } from "@/ui/providers/authProvider";
+
+import BaseTemplate from "@/ui/templates/BaseTemplate";
+import { Box, Button, Spinner } from "native-base";
+import Text from "@/components/base/Text";
+import getPublicOnePost from "@/api/getPost";
 
 interface PostScreenProps {
   postId: string;
@@ -21,7 +21,6 @@ export function PostScreen({ postId }: PostScreenProps) {
 
   const getPosts = async () => {
     const postData: PostInterface = await requestPosts.submit();
-    //console.log("ta retornando:",postData)
 
     setPost(postData);
   };
@@ -30,10 +29,22 @@ export function PostScreen({ postId }: PostScreenProps) {
     getPosts();
   }, []);
 
+  const handleGoBack = () => {
+    navigate.back();
+  };
+
   return (
     <BaseTemplate>
       <Box className="pt-8">
-        {requestPosts.loading && <Text>Loading...</Text>}
+        {requestPosts.loading && (
+          <Box>
+            <Spinner
+              className="mx-auto flex flex-row items-center justify-center gap-2"
+              size="sm"
+            />{" "}
+            <Text>Loading ...</Text>
+          </Box>
+        )}
 
         {!requestPosts.loading && !post && (
           <Text>Não encontramos esse post</Text>
@@ -47,25 +58,23 @@ export function PostScreen({ postId }: PostScreenProps) {
               <Text fontSize="sm" color="gray.500" mb={4}>
                 Autor: {post.authorName}
               </Text>
-              
             </Box>
 
             <Text fontSize="md" mb={2}>
               {post?.text}
             </Text>
 
-            <Button onPress={()=> navigate.to("home")} colorScheme="blue" marginBottom={2}>
+            <Button onPress={handleGoBack} colorScheme="blue" marginBottom={2}>
               Voltar
             </Button>
 
             {isLogged && (
-                <Button
-                  onPress={() => navigate.to("postUpdate", { postId: post.id })}>
-                  Editar
-                </Button>
-              )}
-
-            
+              <Button
+                onPress={() => navigate.to("postUpdate", { postId: post.id })}
+              >
+                Editar
+              </Button>
+            )}
           </Box>
         )}
       </Box>

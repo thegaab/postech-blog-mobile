@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="74958589-eee2-4284-8960-f9ab3cae85ee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/api/postTeacher.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/screens/Users/createTeacher/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/postStudents.ts" beforeDir="false" afterPath="$PROJECT_DIR$/api/postStudents.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/app.routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/routes/app.routes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/screens/Users/CreateStudent/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ui/screens/Users/CreateStudent/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/screens/Users/CreateTeacher/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/ui/screens/Users/CreateTeacher/index.tsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2pLUBpdp55rMbIX3O3MDUXpm6vw" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "create-users-screen",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Tiago/codes/Fiap/postech-blog-mobile/app/screens/Users/createTeacher",
+    "settings.editor.selected.configurable": "AndroidSdkUpdater"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Tiago\codes\Fiap\postech-blog-mobile\app\screens\Users\createTeacher" />
+      <recent name="C:\Users\Tiago\codes\Fiap\postech-blog-mobile\api" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Tiago\codes\Fiap\postech-blog-mobile\app\screens" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="74958589-eee2-4284-8960-f9ab3cae85ee" name="Changes" comment="" />
+      <created>1732544716727</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1732544716727</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.ts" />
+  </component>
+</project>

@@ -1,3 +1,4 @@
+import { FailedResponse } from "@/types/apiPatterns";
 import { TeacherAuth } from "@/types/apiResponse";
 import { getToken } from "@/ui/services/storage";
 import { useState } from "react";
@@ -14,7 +15,7 @@ export default function apiRequest(
   body?: any
 ) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [err, setErr] = useState<boolean>(false);
+  const [err, setErr] = useState<FailedResponse | undefined>(undefined);
 
   const requestHeaders = {
     "Access-Control-Allow-Credentials": "true",
@@ -46,11 +47,16 @@ export default function apiRequest(
 
       setIsLoading(false);
 
+      if (!res || res.statusCode >= 300) {
+        throw new Error(res);
+      }
+
       return res;
     } catch (error) {
       setIsLoading(false);
+      const er = error as unknown as FailedResponse;
       console.log("ERROR", path, error);
-      setErr(true);
+      setErr(er);
     }
   };
 
