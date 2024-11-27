@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Alert, Text } from "react-native";
 import { Button, Box, Heading, Spinner } from "native-base";
-import postStudent from "@/api/postStudents";
+import postStudent from "@/api/createStudent";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
 import Input from "@/components/base/Input";
 import { useNavigate } from "@/ui/navigation";

@@ -47,6 +47,10 @@ export default function apiRequest(
 
       setIsLoading(false);
 
+      if (!res || res.statusCode >= 300) {
+        throw new Error(res);
+      }
+
       return res;
     } catch (error) {
       setIsLoading(false);

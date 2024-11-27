@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { View, Alert } from "react-native";
+import { Text, Alert } from "react-native";
 import { Button, Box, Heading, Spinner } from "native-base";
-import postTeacher from "@/api/postTeacher";
+import postTeacher from "@/api/createTeacher";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
 import Input from "@/components/base/Input";
 import { useNavigate } from "@/ui/navigation";
@@ -39,9 +39,14 @@ export default function CreateTeacherScreen() {
   return (
     <BaseTemplate>
       <Box className="flex justify-center items-center h-full px-2">
-        <Heading className="mb-4" colorScheme="secondary" color="primary.600">
-          Crie seu login
-        </Heading>
+        <Box className="flex items-center mb-10">
+          <Heading className="mb-4" colorScheme="secondary" color="primary.600">
+            Novo professor
+          </Heading>
+          <Text className="text-white font-normal">
+            Cadastre aqui um novo professor
+          </Text>
+        </Box>
 
         <Box className="mb-8 w-full">
           <Input

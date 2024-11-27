@@ -9,7 +9,7 @@ interface TeacherCreateData {
 }
 
 export default function postTeacher(teacherData: TeacherCreateData) {
-  const req = apiRequest("POST", "/teacher", teacherData);
+  const req = apiRequest("POST", "/users", teacherData);
 
   async function submit() {
     const res: SuccessResponse<Teacher> = await req.submit();
