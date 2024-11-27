@@ -1,57 +1,48 @@
 import React, { useState } from "react";
-import { View, Alert } from "react-native";
+import { Alert, Text } from "react-native";
 import { Button, Box, Heading, Spinner } from "native-base";
 import postStudent from "@/api/postStudents";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
 import Input from "@/components/base/Input";
+import { useNavigate } from "@/ui/navigation";
 
 export default function CreateStudentScreen() {
   const [name, setName] = useState("");
-  const [grade, setGrade] = useState("");
+
+  const navigate = useNavigate();
+  const createStudent = postStudent({ name });
 
   const handleCreateStudent = async () => {
-    if (!name.trim()) {
-      Alert.alert("Erro", "O campo Nome é obrigatório.");
-      return;
-    }
-
-    try {
-      const studentData = { name, grade: grade || undefined };
-      const res = await postStudent(studentData).submit();
-      Alert.alert("Sucesso", `Aluno criado: ${res.name}`);
-    } catch (error) {
-      Alert.alert("Erro", "Não foi possível criar o aluno.");
-      console.error(error);
-    }
+    const res = await createStudent.submit();
+    Alert.alert("Sucesso", `Aluno criado: ${res.name}`);
+    navigate.to("studentList");
   };
 
   return (
-
     <BaseTemplate>
-          <Box className="flex justify-center items-center h-full px-2">
-            <Heading className="mb-4" colorScheme="secondary" color="primary.600">
-              Crie seu login
-            </Heading>
+      <Box className="flex items-center h-full px-2 py-20">
+        <Box className="flex items-center mb-10">
+          <Heading size={"2xl"} className="mb-2" colorScheme={"primary"}>
+            Novo aluno
+          </Heading>
+          <Text className="text-white font-normal">
+            Cadastre aqui um novo aluno
+          </Text>
+        </Box>
 
-            <Box className="mb-8 w-full">
-              <Input
-                label="name"
-                name="name"
-                value={name}
-                onChangeText={(v: string) => setName(v)}
-              />
-              <Input
-                label="Grade"
-                name="grade"
-                value={grade}
-                onChangeText={(v: string) => setGrade(v)}
-              />
+        <Box className="flex flex-col gap-2 mb-8 w-full">
+          <Input
+            label="Nome"
+            name="name"
+            value={name}
+            onChangeText={(v: string) => setName(v)}
+          />
 
-              <Button onPress={handleCreateStudent} className="mt-3">
-                 Criar aluno!
-              </Button>
-            </Box>
-          </Box>
-        </BaseTemplate>
+          <Button onPress={handleCreateStudent} className="mt-3">
+            {createStudent.loading ? <Spinner /> : "Criar aluno"}
+          </Button>
+        </Box>
+      </Box>
+    </BaseTemplate>
   );
 }
