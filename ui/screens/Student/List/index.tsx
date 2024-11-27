@@ -4,7 +4,7 @@ import StudentPreview from "@/components/StudentPreview";
 import { Student } from "@/types";
 import { useNavigate } from "@/ui/navigation";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
-import { Box, Heading, View } from "native-base";
+import { Box, Button, Heading, View } from "native-base";
 import { useEffect, useState } from "react";
 
 export function ListStudentScreen() {
@@ -37,6 +37,10 @@ export function ListStudentScreen() {
         <Box className="w-full">
           <Box className="mb-3">
             <Heading size={"lg"}>Alunos</Heading>
+            {/* trocar para enviar para tela de criação de alunos */}
+            <Button onPress={() => navigate.to("studentList")}>
+              Criar novo aluno
+            </Button>
           </Box>
         </Box>
       </View>
