@@ -4,7 +4,7 @@ import TeacherPreview from "@/components/TeacherPreview";
 import { Teacher } from "@/types";
 import { useNavigate } from "@/ui/navigation";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
-import { Box, Heading, View } from "native-base";
+import { Box, Button, Heading, View } from "native-base";
 import { useEffect, useState } from "react";
 
 export function ListTeacherScreen() {
@@ -37,6 +37,10 @@ export function ListTeacherScreen() {
         <Box className="w-full">
           <Box className="mb-3">
             <Heading size={"lg"}>Professores</Heading>
+            {/* trocar para enviar para tela de criação de professores */}
+            <Button onPress={() => navigate.to("teacherList")}>
+              Criar novo professor
+            </Button>
           </Box>
         </Box>
       </View>

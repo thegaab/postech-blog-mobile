@@ -1,3 +1,4 @@
+import deleteTeacher from "@/api/deleteTeacher";
 import { Teacher } from "@/types";
 import { useNavigate } from "@/ui/navigation";
 import { Box, Button, Heading, Text } from "native-base";
@@ -8,6 +9,7 @@ interface TeacherPreviewProps {
 
 export default function TeacherPreview({ item }: TeacherPreviewProps) {
   const navigate = useNavigate();
+  const deleteRequest = deleteTeacher(item.id);
 
   return (
     <Box className="rounded-lg px-1.5 py-3 bg-stone-600">
@@ -19,14 +21,11 @@ export default function TeacherPreview({ item }: TeacherPreviewProps) {
         <Box className="flex flex-col gap-1">
           <Button
             colorScheme="tertiary"
-            onPress={() => navigate.to("post", { postId: item.id })}
+            // onPress={() => navigate.to("teacherEdit", { teacherId: item.id })}
           >
             Editar
           </Button>
-          <Button
-            colorScheme="danger"
-            onPress={() => navigate.to("post", { postId: item.id })}
-          >
+          <Button colorScheme="danger" onPress={deleteRequest.submit}>
             Deletar
           </Button>
         </Box>
