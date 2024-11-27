@@ -35,10 +35,11 @@ export function ListTeacherScreen() {
     <BaseTemplate>
       <View className="pt-6">
         <Box className="w-full">
-          <Box className="mb-3">
-            <Heading size={"lg"}>Professores</Heading>
-            {/* trocar para enviar para tela de criação de professores */}
-            <Button onPress={() => navigate.to("teacherList")}>
+          <Box className="mb-3 flex flex-row justify-between items-end">
+            <Heading size={"lg"} className="w-3/5">
+              Professores
+            </Heading>
+            <Button onPress={() => navigate.to("createTeacher")}>
               Criar novo professor
             </Button>
           </Box>

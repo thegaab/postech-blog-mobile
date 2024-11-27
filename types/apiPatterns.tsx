@@ -3,9 +3,9 @@ export interface SuccessResponse<T> {
   data: T;
 }
 
-export interface FailedResponse<T> {
+export interface FailedResponse {
   error: number;
-  message: T;
+  message: string;
 }
 
 export interface InterfaceList<T> {

@@ -35,10 +35,11 @@ export function ListStudentScreen() {
     <BaseTemplate>
       <View className="pt-6">
         <Box className="w-full">
-          <Box className="mb-3">
-            <Heading size={"lg"}>Alunos</Heading>
-            {/* trocar para enviar para tela de criação de alunos */}
-            <Button onPress={() => navigate.to("studentList")}>
+          <Box className="mb-3 flex flex-row justify-between items-end">
+            <Heading size={"lg"} className="w-3/5">
+              Alunos
+            </Heading>
+            <Button onPress={() => navigate.to("createStudent")}>
               Criar novo aluno
             </Button>
           </Box>
