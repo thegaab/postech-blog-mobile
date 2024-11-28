@@ -8,11 +8,13 @@ import ListTeacherView from "@/app/screens/TeachersList";
 import ListStudentView from "@/app/screens/StudentsList";
 import CreateStudentView from "@/app/screens/StudentCreate";
 import EditPost from "@/app/screens/PostEdit";
+import CreateTeacherView from "@/app/screens/TeacherCreate";
 
 export type RootStackParamList = {
   home: undefined;
   admin: undefined;
   teacherList: undefined;
+  teacherCreate: undefined;
   studentList: undefined;
   studentCreate: undefined;
   login: undefined;
@@ -27,13 +29,20 @@ export function AppRoutes() {
   return (
     <Navigator initialRouteName="home" screenOptions={{ headerShown: false }}>
       <Screen name="home" component={Home} />
-      <Screen name="admin" component={Admin} />
-      <Screen name="teacherList" component={ListTeacherView} />
-      <Screen name="studentList" component={ListStudentView} />
-      <Screen name="studentCreate" component={CreateStudentView} />
-      <Screen name="postUpdate" component={EditPost} />
       <Screen name="post" component={Post} />
       <Screen name="login" component={Login} />
+
+      {/* Post Admin Views */}
+      <Screen name="admin" component={Admin} />
+      <Screen name="postUpdate" component={EditPost} />
+
+      {/* Teacher Views */}
+      <Screen name="teacherList" component={ListTeacherView} />
+      <Screen name="teacherCreate" component={CreateTeacherView} />
+
+      {/* Student Views */}
+      <Screen name="studentList" component={ListStudentView} />
+      <Screen name="studentCreate" component={CreateStudentView} />
     </Navigator>
   );
 }

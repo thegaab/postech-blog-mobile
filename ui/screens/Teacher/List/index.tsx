@@ -37,8 +37,7 @@ export function ListTeacherScreen() {
         <Box className="w-full">
           <Box className="mb-3">
             <Heading size={"lg"}>Professores</Heading>
-            {/* trocar para enviar para tela de criação de professores */}
-            <Button onPress={() => navigate.to("teacherList")}>
+            <Button onPress={() => navigate.to("teacherCreate")}>
               Criar novo professor
             </Button>
           </Box>

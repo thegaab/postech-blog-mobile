@@ -4,15 +4,23 @@ import { Button, Box, Heading, Spinner } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
 import Input from "@/components/base/Input";
 import createStudent from "@/api/createStudent";
+import { useNavigate } from "@/ui/navigation";
 
 export default function CreateStudentScreen() {
   const [name, setName] = useState("");
 
+  const navigate = useNavigate();
   const createRequest = createStudent({ name: name });
 
   const handleCreateStudent = async () => {
     const student = await createRequest.submit();
-    Alert.alert("Sucesso", `Aluno criado: ${student.name}`);
+
+    if (student) {
+      Alert.alert("Sucesso", `Aluno criado: ${student.name}`);
+      navigate.to("teacherList");
+    } else {
+      Alert.alert("Não foi possível criar o professor no momento");
+    }
   };
 
   return (
