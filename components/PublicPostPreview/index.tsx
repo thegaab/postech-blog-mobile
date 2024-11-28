@@ -1,8 +1,9 @@
-import { Box, Button, Heading } from "native-base";
+import { Box, Button, Heading, Spinner } from "native-base";
 import Text from "../base/Text";
 import { useNavigate } from "@/ui/navigation";
 import { PostInterface } from "@/types";
 import { useSessionContext } from "@/ui/providers/authProvider";
+import deletePost from "@/api/deletePost";
 
 interface PublicPostsPreviewProps {
   item: PostInterface;
@@ -11,6 +12,8 @@ interface PublicPostsPreviewProps {
 export default function PublicPostPreview({ item }: PublicPostsPreviewProps) {
   const navigate = useNavigate();
   const { isLogged } = useSessionContext();
+
+  const deleteRequest = deletePost(item.id);
 
   return (
     <Box className="rounded-lg px-1.5 py-3 bg-stone-600">
@@ -34,11 +37,11 @@ export default function PublicPostPreview({ item }: PublicPostsPreviewProps) {
               Editar
             </Button>
           )}
-          {/* {isLogged && (
-            <Button onPress={}>
-              Excluir
+          {isLogged && (
+            <Button onPress={deleteRequest.submit} colorScheme={"danger"}>
+              {deleteRequest.loading ? <Spinner /> : "Excluir"}
             </Button>
-          )} */}
+          )}
         </Box>
       </Box>
     </Box>

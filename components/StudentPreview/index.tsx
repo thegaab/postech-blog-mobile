@@ -1,6 +1,6 @@
 import { Student } from "@/types";
 import { useNavigate } from "@/ui/navigation";
-import { Box, Button, Heading } from "native-base";
+import { Box, Button, Heading, Spinner } from "native-base";
 import cx from "classnames";
 import deleteStudent from "@/api/deleteStudent";
 
@@ -36,12 +36,13 @@ export default function StudentPreview({ item }: StudentPreviewProps) {
         <Box className="flex flex-row gap-2 justify-end items-center w-full">
           <Button
             colorScheme="tertiary"
-            // onPress={() => navigate.to("studentEdit", { studentId: item.id })}
+            // mudar para pagina de edição
+            onPress={() => navigate.to("studentList", { studentId: item.id })}
           >
             Editar
           </Button>
-          <Button colorScheme="danger" onPress={deleteRequest.submit}>
-            Deletar
+          <Button onPress={deleteRequest.submit} colorScheme={"danger"}>
+            {deleteRequest.loading ? <Spinner /> : "Excluir"}
           </Button>
         </Box>
       </Box>
