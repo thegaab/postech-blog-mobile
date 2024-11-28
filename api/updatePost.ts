@@ -11,9 +11,7 @@ export default function updatePost(
   async function submit() {
     const res: SuccessResponse<PostInterface> = await req.submit();
 
-    const { data } = res;
-
-    return data;
+    return res.status === 200;
   }
 
   return { ...req, submit: submit };
