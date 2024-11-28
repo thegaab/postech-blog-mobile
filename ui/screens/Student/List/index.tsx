@@ -37,8 +37,7 @@ export function ListStudentScreen() {
         <Box className="w-full">
           <Box className="mb-3">
             <Heading size={"lg"}>Alunos</Heading>
-            {/* trocar para enviar para tela de criação de alunos */}
-            <Button onPress={() => navigate.to("studentList")}>
+            <Button onPress={() => navigate.to("studentCreate")}>
               Criar novo aluno
             </Button>
           </Box>
