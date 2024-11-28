@@ -51,8 +51,8 @@ export function PostScreen({ postId }: PostScreenProps) {
             <Text fontWeight="bold" fontSize="xl" mb={4}>
               {post.title}
             </Text>
-            <Box>
-              <Text fontSize="sm" color="gray.500" mb={4}>
+            <Box className="flex flex-row justify-between items-center mb-6">
+              <Text fontSize="sm" color="gray.500" mb={4} className="w-1/3">
                 Autor: {post.authorName}
               </Text>
               {isLogged && (
@@ -69,7 +69,11 @@ export function PostScreen({ postId }: PostScreenProps) {
               {post?.text}
             </Text>
 
-            <Button onPress={navigate.back} colorScheme="blue">
+            <Button
+              onPress={() => navigate.to("postUpdate", { postId })}
+              colorScheme="blue"
+              className="mt-10"
+            >
               Voltar
             </Button>
           </Box>

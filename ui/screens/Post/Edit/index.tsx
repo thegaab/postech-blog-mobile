@@ -1,8 +1,9 @@
-import { Box, Button } from "native-base";
+import { Box, Button, Heading } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
 import { useEffect, useState } from "react";
 import { PostInterface } from "@/types";
 import Text from "@/components/base/Text";
+import { Alert } from "react-native";
 import updatePost from "@/api/updatePost";
 import getPublicOnePost from "@/api/getPost";
 import { useNavigate } from "@/ui/navigation";
@@ -15,7 +16,6 @@ interface PostScreenProps {
 export function EditPostScreen({ postId }: PostScreenProps) {
   const [postTitle, setPostTitle] = useState<string | undefined>(undefined);
   const [postContent, setPostContent] = useState<string | undefined>(undefined);
-  const [error, setError] = useState<boolean>(false);
 
   // no input pegue as keywords separadas por vírgula
   const [keyWords, setKeywords] = useState<string | undefined>(undefined);
@@ -43,17 +43,14 @@ export function EditPostScreen({ postId }: PostScreenProps) {
     console.log(updatedPost);
 
     if (updatedPost) {
-      setError(false);
-      console.log("Post atualizado com sucesso!");
+      Alert.alert("Post atualizado com sucesso!");
       navigate.to("post", { postId });
     } else {
-      console.log("Não foi possível atualizar o post");
-      setError(true);
+      Alert.alert("Não foi possível atualizar o post no momento");
     }
   };
 
   useEffect(() => {
-    setError(false);
     if (postTitle === undefined && postContent === undefined) {
       getPostContent();
     }
@@ -64,15 +61,15 @@ export function EditPostScreen({ postId }: PostScreenProps) {
       <Box className="pt-8">
         <Button
           onPress={() => navigate.back()}
-          className="mb-6 self-start"
+          className="mb-2 self-start"
           variant="link"
         >
           Voltar
         </Button>
 
-        <Text>
+        <Heading className="mb-6">
           Edição de <Text className="text-primary-700">post</Text>
-        </Text>
+        </Heading>
 
         {/* Input para o título */}
         <Input
@@ -109,7 +106,7 @@ export function EditPostScreen({ postId }: PostScreenProps) {
           onPress={submitUpdate}
           isLoading={requestUpdatePosts.loading}
           isDisabled={requestUpdatePosts.loading || !postTitle || !postContent}
-          className="mt-4"
+          className="mt-10"
         >
           Salvar alterações
         </Button>
