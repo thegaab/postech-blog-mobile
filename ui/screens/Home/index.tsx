@@ -1,11 +1,12 @@
 import { Box, View } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { PostInterface } from "@/types";
 import getPublicPosts from "@/api/getPosts";
 import PublicPostPreview from "@/components/PublicPostPreview";
 import List from "@/components/List";
 import SearchBar from "@/components/SearchBar";
+import { useFocusEffect } from "@react-navigation/native";
 
 // todo: handle keyword
 export function HomeScreen() {
@@ -31,9 +32,11 @@ export function HomeScreen() {
     setMaxPages(Math.ceil(data.totalItems / data.itemsPerPage));
   };
 
-  useEffect(() => {
-    handleSubmit();
-  }, [page]);
+  useFocusEffect(
+    useCallback(() => {
+      handleSubmit();
+    }, [page])
+  );
 
   return (
     <BaseTemplate>

@@ -1,6 +1,6 @@
 import { Box, Button, Heading } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { PostInterface } from "@/types";
 import Text from "@/components/base/Text";
 import { Alert } from "react-native";
@@ -8,6 +8,8 @@ import updatePost from "@/api/updatePost";
 import getPublicOnePost from "@/api/getPost";
 import { useNavigate } from "@/ui/navigation";
 import Input from "@/components/base/Input";
+import { useFocusEffect } from "@react-navigation/native";
+import { useSessionContext } from "@/ui/providers/authProvider";
 
 interface PostScreenProps {
   postId: string;
@@ -50,11 +52,14 @@ export function EditPostScreen({ postId }: PostScreenProps) {
     }
   };
 
-  useEffect(() => {
-    if (postTitle === undefined && postContent === undefined) {
+  const { authenticate } = useSessionContext();
+
+  useFocusEffect(
+    useCallback(() => {
+      authenticate();
       getPostContent();
-    }
-  }, []);
+    }, [])
+  );
 
   return (
     <BaseTemplate>

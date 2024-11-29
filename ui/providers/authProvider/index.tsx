@@ -1,9 +1,9 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import { SessionTeacher } from "@/types";
 import { TeacherAuth } from "@/types/apiResponse";
 import { handleUserResponse } from "@/ui/services/auth";
-import storage from "@/ui/services/storage";
+import storage, { getToken } from "@/ui/services/storage";
 import { useNavigate } from "@/ui/navigation";
 import { isTokenValid } from "@/ui/utils/auth";
 
@@ -12,7 +12,7 @@ type SubmitLogin = () => Promise<TeacherAuth>;
 interface SessionContext {
   user?: SessionTeacher;
   isLogged: boolean;
-  authenticate: (token: TeacherAuth) => void;
+  authenticate: (token?: TeacherAuth) => void;
   login: (f: SubmitLogin) => void;
   logout: () => void;
 }
@@ -61,14 +61,16 @@ export const SessionProvider = ({
     navigate.to("home");
   };
 
-  const authenticate = (auth: TeacherAuth) => {
-    if (user) return;
+  const authenticate = async (newAuth?: TeacherAuth) => {
+    const currAuth = await getToken();
+
+    const auth = newAuth ?? currAuth;
     if (auth && auth.expireAt && isTokenValid(auth.expireAt)) {
       setUser(auth.user);
       return;
     }
 
-    handleUserResponse()
+    handleUserResponse(auth)
       .then((user) => {
         setUser(user);
       })
@@ -82,6 +84,10 @@ export const SessionProvider = ({
         }, 3000);
       });
   };
+
+  useEffect(() => {
+    authenticate();
+  }, []);
 
   const isLogged = !!user;
 

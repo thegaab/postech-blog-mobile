@@ -1,6 +1,6 @@
 import { Box, View, Text } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { PostInterface } from "@/types";
 import PublicPostPreview from "@/components/PublicPostPreview";
 import List from "@/components/List";
@@ -8,6 +8,7 @@ import SearchBar from "@/components/SearchBar";
 import getTeacherPosts from "@/api/getTeacherPosts";
 import { useSessionContext } from "@/ui/providers/authProvider";
 import { useNavigate } from "@/ui/navigation";
+import { useFocusEffect } from "@react-navigation/native";
 
 // TODO: handle keyword
 export function AdminScreen() {
@@ -47,9 +48,14 @@ export function AdminScreen() {
     setMaxPages(Math.ceil(data.totalItems / data.itemsPerPage));
   };
 
-  useEffect(() => {
-    handleSubmit();
-  }, [page]);
+  const { authenticate } = useSessionContext();
+
+  useFocusEffect(
+    useCallback(() => {
+      authenticate();
+      handleSubmit();
+    }, [page])
+  );
 
   return (
     <BaseTemplate>

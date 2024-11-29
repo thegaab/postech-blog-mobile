@@ -16,11 +16,7 @@ export async function getUserFn(): Promise<Teacher | undefined> {
   return currAuth.user;
 }
 
-export async function handleUserResponse(loginAuth?: TeacherAuth) {
-  const currAuth: TeacherAuth = await getToken();
-
-  const auth: TeacherAuth = loginAuth ?? currAuth;
-
+export async function handleUserResponse(auth: TeacherAuth) {
   if (!auth) {
     await clearToken();
     throw new Error("Não foi possivel confirmar suas credenciais");
