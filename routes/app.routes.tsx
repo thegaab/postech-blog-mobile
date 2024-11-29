@@ -9,12 +9,14 @@ import ListStudentView from "@/app/screens/StudentsList";
 import CreateStudentView from "@/app/screens/StudentCreate";
 import EditPost from "@/app/screens/PostEdit";
 import CreateTeacherView from "@/app/screens/TeacherCreate";
+import EditTeacher from "@/app/screens/TeacherEdit";
 
 export type RootStackParamList = {
   home: undefined;
   admin: undefined;
   teacherList: undefined;
   teacherCreate: undefined;
+  teacherEdit: { teacherId: string };
   studentList: undefined;
   studentCreate: undefined;
   login: undefined;
@@ -39,6 +41,7 @@ export function AppRoutes() {
       {/* Teacher Views */}
       <Screen name="teacherList" component={ListTeacherView} />
       <Screen name="teacherCreate" component={CreateTeacherView} />
+      <Screen name="teacherEdit" component={EditTeacher} />
 
       {/* Student Views */}
       <Screen name="studentList" component={ListStudentView} />
