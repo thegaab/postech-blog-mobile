@@ -25,6 +25,7 @@ export default function PublicPostPreview({ item }: PublicPostsPreviewProps) {
         <Box className="w-full flex flex-row justify-end gap-2">
           <Button
             onPress={() => navigate.to("post", { postId: item.id })}
+            colorScheme="tertiary"
             className="w-1/4"
           >
             Ler
@@ -32,6 +33,7 @@ export default function PublicPostPreview({ item }: PublicPostsPreviewProps) {
           {isLogged && (
             <Button
               onPress={() => navigate.to("postUpdate", { postId: item.id })}
+              colorScheme="tertiary"
               className="w-1/4"
             >
               Editar

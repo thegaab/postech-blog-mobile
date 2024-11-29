@@ -21,7 +21,7 @@ export default function TeacherPreview({ item }: TeacherPreviewProps) {
         <Box className="flex flex-col gap-1">
           <Button
             colorScheme="tertiary"
-            onPress={() => navigate.to("teacherList", { teacherId: item.id })}
+            onPress={() => navigate.to("teacherEdit", { teacherId: item.id })}
           >
             Editar
           </Button>
