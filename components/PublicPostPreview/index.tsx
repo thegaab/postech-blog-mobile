@@ -11,7 +11,7 @@ interface PublicPostsPreviewProps {
 
 export default function PublicPostPreview({ item }: PublicPostsPreviewProps) {
   const navigate = useNavigate();
-  const { isLogged } = useSessionContext();
+  const { user } = useSessionContext();
 
   const deleteRequest = deletePost(item.id);
 
@@ -30,7 +30,7 @@ export default function PublicPostPreview({ item }: PublicPostsPreviewProps) {
           >
             Ler
           </Button>
-          {isLogged && (
+          {user && user.id === item.teacherId && (
             <Button
               onPress={() => navigate.to("postUpdate", { postId: item.id })}
               colorScheme="tertiary"
@@ -39,7 +39,7 @@ export default function PublicPostPreview({ item }: PublicPostsPreviewProps) {
               Editar
             </Button>
           )}
-          {isLogged && (
+          {user && user.id === item.teacherId && (
             <Button onPress={deleteRequest.submit} colorScheme={"danger"}>
               {deleteRequest.loading ? <Spinner /> : "Excluir"}
             </Button>

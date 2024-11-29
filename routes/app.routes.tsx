@@ -10,6 +10,7 @@ import CreateStudentView from "@/app/screens/StudentCreate";
 import EditPost from "@/app/screens/PostEdit";
 import CreateTeacherView from "@/app/screens/TeacherCreate";
 import EditTeacher from "@/app/screens/TeacherEdit";
+import { useSessionContext } from "@/ui/providers/authProvider";
 
 export type RootStackParamList = {
   home: undefined;
@@ -27,6 +28,8 @@ export type RootStackParamList = {
 export function AppRoutes() {
   const { Navigator, Screen } =
     createNativeStackNavigator<RootStackParamList>();
+
+  const { isLogged } = useSessionContext();
 
   return (
     <Navigator initialRouteName="home" screenOptions={{ headerShown: false }}>

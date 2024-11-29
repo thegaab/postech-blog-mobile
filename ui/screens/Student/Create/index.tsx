@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Alert } from "react-native";
 import { Button, Box, Heading, Spinner } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
 import Input from "@/components/base/Input";
 import createStudent from "@/api/createStudent";
 import { useNavigate } from "@/ui/navigation";
+import { useFocusEffect } from "@react-navigation/native";
+import { useSessionContext } from "@/ui/providers/authProvider";
 
 export default function CreateStudentScreen() {
   const [name, setName] = useState("");
@@ -22,6 +24,14 @@ export default function CreateStudentScreen() {
       Alert.alert("Não foi possível criar o professor no momento");
     }
   };
+
+  const { authenticate } = useSessionContext();
+
+  useFocusEffect(
+    useCallback(() => {
+      authenticate();
+    }, [])
+  );
 
   return (
     <BaseTemplate>

@@ -3,9 +3,11 @@ import List from "@/components/List";
 import StudentPreview from "@/components/StudentPreview";
 import { Student } from "@/types";
 import { useNavigate } from "@/ui/navigation";
+import { useSessionContext } from "@/ui/providers/authProvider";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
+import { useFocusEffect } from "@react-navigation/native";
 import { Box, Button, Heading, View } from "native-base";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 export function ListStudentScreen() {
   const [students, setStudents] = useState<Student[]>([]);
@@ -27,9 +29,14 @@ export function ListStudentScreen() {
     setMaxPages(Math.ceil(data.totalItems / data.itemsPerPage));
   };
 
-  useEffect(() => {
-    handleSubmit();
-  }, [page]);
+  const { authenticate } = useSessionContext();
+
+  useFocusEffect(
+    useCallback(() => {
+      authenticate();
+      handleSubmit();
+    }, [page])
+  );
 
   return (
     <BaseTemplate>

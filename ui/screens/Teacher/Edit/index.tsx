@@ -1,15 +1,16 @@
 import { Box, Button, Heading } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { Teacher } from "@/types";
 import Text from "@/components/base/Text";
 import { Alert } from "react-native";
-import updatePost from "@/api/updatePost";
 import { useNavigate } from "@/ui/navigation";
 import Input from "@/components/base/Input";
 import getOneTeacher from "@/api/getTeacher";
 import updateTeacher from "@/api/updateTeacher";
 import updateTeacherPassword from "@/api/updateTeacherPassword";
+import { useFocusEffect } from "@react-navigation/native";
+import { useSessionContext } from "@/ui/providers/authProvider";
 
 interface PostScreenProps {
   teacherId: string;
@@ -61,11 +62,14 @@ export function EditTeacherScreen({ teacherId }: PostScreenProps) {
     }
   };
 
-  useEffect(() => {
-    if (name === undefined && username === undefined) {
+  const { authenticate } = useSessionContext();
+
+  useFocusEffect(
+    useCallback(() => {
+      authenticate();
       getTeacherContent();
-    }
-  }, []);
+    }, [])
+  );
 
   return (
     <BaseTemplate>

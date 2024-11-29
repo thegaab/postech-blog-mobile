@@ -1,10 +1,10 @@
 import { Box, Button, Spinner } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { PostInterface } from "@/types";
 import Text from "@/components/base/Text";
 import getPublicOnePost from "@/api/getPost";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 import { useNavigate } from "@/ui/navigation";
 import { useSessionContext } from "@/ui/providers/authProvider";
 
@@ -26,9 +26,11 @@ export function PostScreen({ postId }: PostScreenProps) {
     setPost(postData);
   };
 
-  useEffect(() => {
-    getPosts();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getPosts();
+    }, [])
+  );
 
   return (
     <BaseTemplate>
