@@ -9,6 +9,7 @@ import ListStudentView from "@/app/screens/StudentsList";
 import CreateStudentView from "@/app/screens/StudentCreate";
 import EditPost from "@/app/screens/PostEdit";
 import CreateTeacherView from "@/app/screens/TeacherCreate";
+import CreatePost from "@/app/screens/PostCreate";
 
 export type RootStackParamList = {
   home: undefined;
@@ -20,6 +21,7 @@ export type RootStackParamList = {
   login: undefined;
   post: { postId: string };
   postUpdate: { postId: string };
+  postCreate: undefined; 
 };
 
 export function AppRoutes() {
@@ -34,6 +36,7 @@ export function AppRoutes() {
 
       {/* Post Admin Views */}
       <Screen name="admin" component={Admin} />
+      <Screen name="postCreate" component={CreatePost} />
       <Screen name="postUpdate" component={EditPost} />
 
       {/* Teacher Views */}

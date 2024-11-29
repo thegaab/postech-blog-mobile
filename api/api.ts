@@ -13,9 +13,11 @@ export default function apiRequest(
   path: string,
   body?: any
 ) {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  // Estado para controle de loading
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Use boolean explicitly here
   const [err, setErr] = useState<boolean>(false);
 
+  // Cabeçalhos da requisição
   const requestHeaders = {
     "Access-Control-Allow-Credentials": "true",
     "Access-Control-Allow-Origin": "*",
@@ -26,37 +28,56 @@ export default function apiRequest(
   };
 
   const submitRequest = async () => {
-    const currAuth: TeacherAuth = await getToken();
-    setIsLoading(true);
+    const currAuth: TeacherAuth = await getToken(); // Obtém o token de autenticação
+    setIsLoading(true); // Ativa o loading antes de fazer a requisição
 
     const requestParams = {
       headers: {
         ...requestHeaders,
-        Authorization: `Bearer ${currAuth?.token ?? ""}`,
+        Authorization: `Bearer ${currAuth?.token ?? ""}`, // Adiciona o token no cabeçalho
       },
-      method: method,
-      body: body ? JSON.stringify(body) : "",
+      method: method, // Define o método da requisição (GET, POST, etc.)
+      body: body ? JSON.stringify(body) : "", // Define o corpo da requisição, se existir
     };
 
     try {
+      // Faz a requisição para o endpoint especificado
       const res = await fetch(
         `https://postech-blog-api.onrender.com${path}`,
         requestParams
-      ).then((res) => res.json());
+      );
 
-      setIsLoading(false);
+      // Verifica se a resposta é um erro (status 4xx ou 5xx)
+      if (!res.ok) {
+        const errorDetails = await res.json(); // Tenta pegar os detalhes do erro
+        throw new Error(
+          `Erro na requisição: ${res.status} - ${errorDetails.message || "Sem detalhes"}`
+        );
+      }
 
-      return res;
-    } catch (error) {
-      setIsLoading(false);
-      console.log("ERROR", path, error);
+      // Se a resposta for OK, retorna os dados
+      const data = await res.json();
+      setIsLoading(false); // Desativa o loading após receber a resposta
+      return data;
+    } catch (error: any) {
+      setIsLoading(false); // Desativa o loading se ocorrer erro
+
+      // Se o erro for uma instância de Error, imprime os detalhes no console
+      if (error instanceof Error) {
+        console.error("Detalhes do erro:", error.message);
+      }
+
+      // Marca o erro como verdadeiro para atualizar o estado
       setErr(true);
+
+      // Retorna um objeto de erro com a mensagem
+      return { error: true, message: error.message || "Erro desconhecido" };
     }
   };
 
   return {
-    submit: submitRequest,
-    loading: isLoading,
-    err: err,
+    submit: submitRequest, // Função para enviar a requisição
+    loading: isLoading,    // Estado que indica se a requisição está carregando
+    err: err,              // Estado que indica se houve erro
   };
 }
