@@ -4,11 +4,12 @@ interface PostCreateData {
   title: string;
   text: string;
   keyWords: string[];
+  teacherId: string;
 }
 
 export default function createPost(postData: PostCreateData) {
   // A requisição POST para criar um novo post
-  const req = apiRequest("POST", "/posts/new", postData);
+  const req = apiRequest("POST", "/posts", postData);
   console.log("Dados enviados:", postData);
 
   async function submit() {
