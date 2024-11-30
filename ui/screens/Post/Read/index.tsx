@@ -60,7 +60,7 @@ export function PostScreen({ postId }: PostScreenProps) {
               {isLogged && (
                 <Button
                   size={"xs"}
-                  onPress={() => navigate.to("post", { postId: post.id })}
+                  onPress={() => navigate.to("postUpdate", { postId: post.id })}
                 >
                   Editar
                 </Button>
@@ -72,7 +72,7 @@ export function PostScreen({ postId }: PostScreenProps) {
             </Text>
 
             <Button
-              onPress={() => navigate.to("postUpdate", { postId })}
+              onPress={() => navigate.back()}
               colorScheme="blue"
               className="mt-10"
             >
