@@ -20,7 +20,7 @@ export interface Student {
 
 export interface CreatePostInterface {
   text: string;
-  teacherId: string;
+  teacherId?: string;
   title: string;
   keyWords: string[];
 }
