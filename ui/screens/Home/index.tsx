@@ -1,4 +1,4 @@
-import { Box, View } from "native-base";
+import { Box, Spinner, View } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
 import { useCallback, useEffect, useState } from "react";
 import { PostInterface } from "@/types";
@@ -7,6 +7,7 @@ import PublicPostPreview from "@/components/PublicPostPreview";
 import List from "@/components/List";
 import SearchBar from "@/components/SearchBar";
 import { useFocusEffect } from "@react-navigation/native";
+import getPublicPostsByKeyword from "@/api/getPostsByKeyword";
 
 // todo: handle keyword
 export function HomeScreen() {
@@ -16,17 +17,26 @@ export function HomeScreen() {
   const [maxPages, setMaxPages] = useState(1);
 
   const requestPosts = getPublicPosts(page);
+  const getByKeyword = getPublicPostsByKeyword(keyword, page);
 
-  const handleKeyword = (t: string) => {
+  const handleKeyword = async (t: string) => {
+    const dataByKeyword = await getByKeyword.submit();
+    if(!dataByKeyword){
+      const postFound = posts.filter(post => post.keyWords.includes(t));
+      console.log(postFound);
+      setPosts(postFound);
+    }
+
     setKeyword(t);
     setPage(1);
+
   };
 
   const handleSubmit = async () => {
     const data = await requestPosts.submit();
 
     if (!data || !data.data) return;
-
+    console.log(data.data);
     const updateList = posts.length >= 0 ? data.data : [...posts, ...data.data];
     setPosts(updateList);
     setMaxPages(Math.ceil(data.totalItems / data.itemsPerPage));
@@ -53,6 +63,7 @@ export function HomeScreen() {
             totalPages={maxPages}
             nextPage={() => setPage(page + 1)}
           />
+
         </Box>
       </View>
     </BaseTemplate>
