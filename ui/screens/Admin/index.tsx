@@ -1,4 +1,4 @@
-import { Box, View, Text } from "native-base";
+import { Box, View, Text, Button } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
 import { useCallback, useEffect, useState } from "react";
 import { PostInterface } from "@/types";
@@ -65,6 +65,11 @@ export function AdminScreen() {
             <Text>Bem vindo</Text>
             <Text className="">Professor {user.name}</Text>
           </Box>
+          <Button onPress={() => navigate.to("postCreate")} className="my-2">
+            Novo post
+          </Button>
+        </Box>
+        <Box>
           <SearchBar onSearch={handleKeyword} />
         </Box>
       </View>

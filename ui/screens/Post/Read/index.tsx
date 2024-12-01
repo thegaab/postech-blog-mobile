@@ -7,6 +7,7 @@ import getPublicOnePost from "@/api/getPost";
 import { useFocusEffect } from "@react-navigation/native";
 import { useNavigate } from "@/ui/navigation";
 import { useSessionContext } from "@/ui/providers/authProvider";
+import deletePost from "@/api/deletePost";
 
 interface PostScreenProps {
   postId: string;
@@ -18,6 +19,7 @@ export function PostScreen({ postId }: PostScreenProps) {
   const { isLogged } = useSessionContext();
 
   const requestPosts = getPublicOnePost(postId);
+  const deleteRequest = deletePost(postId);
 
   const getPosts = async () => {
     const postData: PostInterface = await requestPosts.submit();
@@ -49,7 +51,7 @@ export function PostScreen({ postId }: PostScreenProps) {
           <Text>Não encontramos esse post</Text>
         )}
         {!requestPosts.loading && post && (
-          <Box>
+          <Box className="mb-6">
             <Text fontWeight="bold" fontSize="xl" mb={4}>
               {post.title}
             </Text>
@@ -60,7 +62,7 @@ export function PostScreen({ postId }: PostScreenProps) {
               {isLogged && (
                 <Button
                   size={"xs"}
-                  onPress={() => navigate.to("post", { postId: post.id })}
+                  onPress={() => navigate.to("postUpdate", { postId: post.id })}
                 >
                   Editar
                 </Button>
@@ -72,14 +74,18 @@ export function PostScreen({ postId }: PostScreenProps) {
             </Text>
 
             <Button
-              onPress={() => navigate.to("postUpdate", { postId })}
-              colorScheme="blue"
+              onPress={() => deleteRequest.submit()}
+              colorScheme="danger"
               className="mt-10"
             >
-              Voltar
+              {deleteRequest.loading ? <Spinner /> : "Excluir"}
             </Button>
           </Box>
         )}
+
+        <Button onPress={() => navigate.to("home")} colorScheme="tertiary">
+          Voltar
+        </Button>
       </Box>
     </BaseTemplate>
   );
