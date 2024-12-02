@@ -2,6 +2,7 @@ import { Entypo } from "@expo/vector-icons";
 import Input from "../base/Input";
 import { Box } from "native-base";
 import { useState } from "react";
+import { Keyboard, TouchableWithoutFeedback } from "react-native";
 
 interface SearchBarProps {
   onSearch: (s: string) => void;
@@ -33,6 +34,7 @@ const SearchBar = ({ onSearch, onClear }: SearchBarProps) => {
           size={20}
           name="magnifying-glass"
           onPress={handleSearch}
+          onPressIn={() => Keyboard.dismiss()}
           selectionColor="primary"
         />
       );

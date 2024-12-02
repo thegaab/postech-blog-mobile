@@ -1,6 +1,6 @@
-import { Alert, Box, Spinner, View } from "native-base";
+import { Box, View } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { PostInterface } from "@/types";
 import getPublicPosts from "@/api/getPosts";
 import PublicPostPreview from "@/components/PublicPostPreview";
@@ -9,6 +9,7 @@ import SearchBar from "@/components/SearchBar";
 import { useFocusEffect } from "@react-navigation/native";
 import getPublicPostsByKeyword from "@/api/getPostsByKeyword";
 import { InterfaceList } from "@/types/apiPatterns";
+import { Keyboard, TouchableWithoutFeedback } from "react-native";
 
 // todo: handle keyword
 export function HomeScreen() {
@@ -23,7 +24,7 @@ export function HomeScreen() {
   const handleKeyword = async (t: string) => {
     setKeyword(t);
   };
-  
+
   const clearKeyword = async (t: string) => {
     setKeyword("");
   };
