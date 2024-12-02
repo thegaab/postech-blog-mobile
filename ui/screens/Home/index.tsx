@@ -8,6 +8,7 @@ import List from "@/components/List";
 import SearchBar from "@/components/SearchBar";
 import { useFocusEffect } from "@react-navigation/native";
 import getPublicPostsByKeyword from "@/api/getPostsByKeyword";
+import { InterfaceList } from "@/types/apiPatterns";
 
 // todo: handle keyword
 export function HomeScreen() {
@@ -18,48 +19,31 @@ export function HomeScreen() {
 
   const requestPosts = getPublicPosts(page);
   const getByKeyword = getPublicPostsByKeyword(keyword, page);
-  
-  
-  const handleKeyword = async (t:string) => {
-    
-    const dataByKeyword = await getByKeyword.submit();
-    console.log(getByKeyword.submit());
-    console.log(getByKeyword.loading);
-    console.log(getByKeyword.err);
-    
 
-    if (!dataByKeyword || !dataByKeyword.data) return;
-    const updateListKeyword = posts.length >= 0 ? dataByKeyword.data : [...posts, ...dataByKeyword.data];
-    setPosts(updateListKeyword);
+  const handleKeyword = async (t: string) => {
     setKeyword(t);
-    setPage(1);
-
-  /*   if(!dataByKeyword){
-      const postFound = posts.filter(post => post.keyWords.includes(t));
-      console.log(postFound);
-      setPosts(postFound);
-    } */
-      //const postFound = dataByKeyword.data.filter(post => post.keyWords.includes(t));
-   
-
   };
 
   const handleSubmit = async () => {
-    const data = await requestPosts.submit();
+    let data: InterfaceList<PostInterface> | undefined;
 
-    if (!data || !data.data) return;
-    //console.log(data.data);
+    if (!!keyword || keyword !== "") {
+      data = await getByKeyword.submit();
+    } else {
+      data = await requestPosts.submit();
+    }
+
+    if (!data) return;
     const updateList = posts.length >= 0 ? data.data : [...posts, ...data.data];
     setPosts(updateList);
     setMaxPages(Math.ceil(data.totalItems / data.itemsPerPage));
   };
 
-   useFocusEffect(
+  useFocusEffect(
     useCallback(() => {
       handleSubmit();
-    }, [page])
-  ); 
-
+    }, [page, keyword])
+  );
 
   return (
     <BaseTemplate>
@@ -76,7 +60,6 @@ export function HomeScreen() {
             totalPages={maxPages}
             nextPage={() => setPage(page + 1)}
           />
-
         </Box>
       </View>
     </BaseTemplate>
