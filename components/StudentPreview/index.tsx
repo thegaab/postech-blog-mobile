@@ -36,8 +36,7 @@ export default function StudentPreview({ item }: StudentPreviewProps) {
         <Box className="flex flex-row gap-2 justify-end items-center w-full">
           <Button
             colorScheme="tertiary"
-            // mudar para pagina de edição
-            onPress={() => navigate.to("studentList", { studentId: item.id })}
+            onPress={() => navigate.to("studentEdit", { studentId: item.id })}
           >
             Editar
           </Button>
