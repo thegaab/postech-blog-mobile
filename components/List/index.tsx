@@ -51,7 +51,7 @@ const List = <T extends Identifiable>({
             : null
         }
         ListFooterComponent={
-          <Box className="mt-8">
+          <Box className="mt-8 pb-32">
             {isLoading && (
               <Box
                 key="loading"
