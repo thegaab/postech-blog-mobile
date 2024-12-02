@@ -1,4 +1,4 @@
-import { Box, Spinner, View } from "native-base";
+import { Alert, Box, Spinner, View } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
 import { useCallback, useEffect, useState } from "react";
 import { PostInterface } from "@/types";
@@ -18,17 +18,29 @@ export function HomeScreen() {
 
   const requestPosts = getPublicPosts(page);
   const getByKeyword = getPublicPostsByKeyword(keyword, page);
-
-  const handleKeyword = async (t: string) => {
+  
+  
+  const handleKeyword = async (t:string) => {
+    
     const dataByKeyword = await getByKeyword.submit();
-    if(!dataByKeyword){
+    console.log(getByKeyword.submit());
+    console.log(getByKeyword.loading);
+    console.log(getByKeyword.err);
+    
+
+    if (!dataByKeyword || !dataByKeyword.data) return;
+    const updateListKeyword = posts.length >= 0 ? dataByKeyword.data : [...posts, ...dataByKeyword.data];
+    setPosts(updateListKeyword);
+    setKeyword(t);
+    setPage(1);
+
+  /*   if(!dataByKeyword){
       const postFound = posts.filter(post => post.keyWords.includes(t));
       console.log(postFound);
       setPosts(postFound);
-    }
-
-    setKeyword(t);
-    setPage(1);
+    } */
+      //const postFound = dataByKeyword.data.filter(post => post.keyWords.includes(t));
+   
 
   };
 
@@ -36,17 +48,18 @@ export function HomeScreen() {
     const data = await requestPosts.submit();
 
     if (!data || !data.data) return;
-    console.log(data.data);
+    //console.log(data.data);
     const updateList = posts.length >= 0 ? data.data : [...posts, ...data.data];
     setPosts(updateList);
     setMaxPages(Math.ceil(data.totalItems / data.itemsPerPage));
   };
 
-  useFocusEffect(
+   useFocusEffect(
     useCallback(() => {
       handleSubmit();
     }, [page])
-  );
+  ); 
+
 
   return (
     <BaseTemplate>
