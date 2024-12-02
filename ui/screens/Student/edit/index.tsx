@@ -7,7 +7,7 @@ import { Alert } from "react-native";
 import { useNavigate } from "@/ui/navigation";
 import Input from "@/components/base/Input";
 import getOneStudent from "@/api/getStudents";
-import updateStudent from "@/api/updateStudent";
+import updateStudent from "@/api/updateStudant";
 import { useFocusEffect } from "@react-navigation/native";
 import { useSessionContext } from "@/ui/providers/authProvider";
 
