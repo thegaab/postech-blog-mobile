@@ -5,9 +5,10 @@ import { useState } from "react";
 
 interface SearchBarProps {
   onSearch: (s: string) => void;
+  onClear: (s: string) => void;
 }
 
-const SearchBar = ({ onSearch }: SearchBarProps) => {
+const SearchBar = ({ onSearch, onClear }: SearchBarProps) => {
   const [value, setValue] = useState<string>("");
   const [searchActive, setSearchActive] = useState<boolean>(false);
   const [searching, setSearching] = useState<string>("");
@@ -19,6 +20,7 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
   };
 
   const handleErase = () => {
+    onClear("");
     setValue("");
     setSearching("");
     setSearchActive(false);

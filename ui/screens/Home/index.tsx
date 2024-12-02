@@ -23,6 +23,10 @@ export function HomeScreen() {
   const handleKeyword = async (t: string) => {
     setKeyword(t);
   };
+  
+  const clearKeyword = async (t: string) => {
+    setKeyword("");
+  };
 
   const handleSubmit = async () => {
     let data: InterfaceList<PostInterface> | undefined;
@@ -49,7 +53,7 @@ export function HomeScreen() {
     <BaseTemplate>
       <View className="pt-8">
         <Box className="w-full mb-6">
-          <SearchBar onSearch={handleKeyword} />
+          <SearchBar onSearch={handleKeyword} onClear={clearKeyword} />
         </Box>
         <Box className="w-full p-2 mb-6">
           <List
