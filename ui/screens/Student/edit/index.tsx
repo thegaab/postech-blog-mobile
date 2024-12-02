@@ -28,11 +28,24 @@ export function EditStudentScreen({ studentId }: StudentScreenProps) {
   });
 
   const getStudentContent = async () => {
-    const student: Student = await requestCurrentData.submit();
+    try {
+      const response = await requestCurrentData.submit();
+      const student = response.data.find((item) => item.id === studentId);
 
-    setName(student.name);
-    setGrades(student.grades.join(", "));
+      if (!student) {
+        Alert.alert("Erro", "Estudante não encontrado.");
+        return;
+      }
+
+      console.log("Estudante encontrado:", student);
+      setName(student.name);
+      setGrades(student.grades.join(", "));
+    } catch (error) {
+      console.error("Erro ao buscar os dados do estudante:", error);
+      Alert.alert("Erro", "Não foi possível carregar os dados do estudante.");
+    }
   };
+
 
   const submitUpdateData = async () => {
     const updatedStudent = await requestUpdateData.submit();
@@ -50,7 +63,7 @@ export function EditStudentScreen({ studentId }: StudentScreenProps) {
     useCallback(() => {
       authenticate();
       getStudentContent();
-    }, [])
+    }, [studentId])
   );
 
   return (
