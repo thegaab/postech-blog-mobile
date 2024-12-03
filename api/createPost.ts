@@ -4,7 +4,7 @@ import { SuccessResponse } from "@/types/apiPatterns";
 import { Alert } from "react-native";
 
 export default function createPost(postData: CreatePostInterface) {
-  const req = apiRequest("POST", "/student", postData);
+  const req = apiRequest("POST", "/posts", postData);
 
   async function submit() {
     if (!postData.teacherId) {
@@ -14,9 +14,13 @@ export default function createPost(postData: CreatePostInterface) {
 
     const res: SuccessResponse<PostInterface> = await req.submit();
 
-    const { data } = res;
-
-    return data;
+    if (res.data) {
+      return res.data;
+    } else if (res.status >= 200 && res.status <= 300) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   return { ...req, submit: submit };

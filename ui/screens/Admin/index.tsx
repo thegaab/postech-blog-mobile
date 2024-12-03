@@ -70,12 +70,15 @@ export function AdminScreen() {
   return (
     <BaseTemplate>
       <View className="pt-6">
-        <Box className="w-full mb-6">
-          <Box className="mb-3">
+        <Box className="w-full mb-3 flex flex-row justify-between items-center">
+          <Box className="w-2/5">
             <Text>Bem vindo</Text>
             <Text className="">Professor {user.name}</Text>
           </Box>
-          <Button onPress={() => navigate.to("postCreate")} className="my-2">
+          <Button
+            onPress={() => navigate.to("postCreate")}
+            className="my-2 w-3/8 whitespace-nowrap"
+          >
             Novo post
           </Button>
         </Box>

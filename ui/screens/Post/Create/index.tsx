@@ -1,4 +1,4 @@
-import { Box, Button, Input, Spinner } from "native-base";
+import { Box, Button, Spinner } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
 import { useState, useCallback } from "react";
 import createPost from "@/api/createPost";
@@ -7,6 +7,7 @@ import { useNavigate } from "@/ui/navigation";
 import { useSessionContext } from "@/ui/providers/authProvider";
 import { Alert } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
+import Input from "@/components/base/Input";
 
 export function CreatePostScreen() {
   const [postTitle, setPostTitle] = useState<string>("");
@@ -37,8 +38,13 @@ export function CreatePostScreen() {
 
     const newPost = await createRequest.submit();
 
-    if (newPost && newPost.id) {
-      navigate.to("post", { postId: newPost.id });
+    if (!!newPost) {
+      Alert.alert("Post criado com sucesso");
+      if (newPost.id) {
+        navigate.to("post", { postId: newPost.id });
+      } else {
+        navigate.to("admin");
+      }
     } else {
       Alert.alert(
         "Não foi possível criar o post no momento, tente novamente mais tarde"
@@ -50,17 +56,19 @@ export function CreatePostScreen() {
   return (
     <BaseTemplate>
       <Box className="pt-8">
-        <Text className="text-xl font-bold mb-4">Criar novo post</Text>
+        <Text className="text-xl font-bold mb-4">Novo post</Text>
 
         <Input
-          placeholder="Título"
+          name="title"
+          label="Título"
           value={postTitle}
           onChangeText={(text) => setPostTitle(text)}
           className="mb-4"
         />
 
         <Input
-          placeholder="Conteúdo"
+          name="text"
+          label="Conteúdo"
           value={postContent}
           onChangeText={(text) => setPostContent(text)}
           className="mb-4"
@@ -70,7 +78,9 @@ export function CreatePostScreen() {
         />
 
         <Input
-          placeholder="Palavras-chave (separadas por vírgulas)"
+          name="keywords"
+          label="Palavras-chave"
+          placeholder="Separe as palavras-chave por vírgula"
           value={keyWords}
           onChangeText={(text) => setKeywords(text)}
           className="mb-4"
