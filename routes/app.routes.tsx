@@ -12,6 +12,7 @@ import CreateTeacherView from "@/app/screens/TeacherCreate";
 import EditTeacher from "@/app/screens/TeacherEdit";
 import EditStudent from "@/app/screens/StudentEdit";
 import { useSessionContext } from "@/ui/providers/authProvider";
+import CreatePostView from "@/app/screens/PostCreate";
 
 export type RootStackParamList = {
   home: undefined;
@@ -24,6 +25,7 @@ export type RootStackParamList = {
   studentEdit: { studentId: string };
   login: undefined;
   post: { postId: string };
+  postCreate: undefined;
   postUpdate: { postId: string };
 };
 
@@ -42,6 +44,7 @@ export function AppRoutes() {
       {/* Post Admin Views */}
       <Screen name="admin" component={Admin} />
       <Screen name="postUpdate" component={EditPost} />
+      <Screen name="postCreate" component={CreatePostView} />
 
       {/* Teacher Views */}
       <Screen name="teacherList" component={ListTeacherView} />

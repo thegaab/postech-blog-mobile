@@ -1,6 +1,6 @@
-import { Box, View, Text } from "native-base";
+import { Box, View, Text, Button } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { PostInterface } from "@/types";
 import PublicPostPreview from "@/components/PublicPostPreview";
 import List from "@/components/List";
@@ -11,8 +11,8 @@ import { useNavigate } from "@/ui/navigation";
 import { useFocusEffect } from "@react-navigation/native";
 import getPublicPostsByKeyword from "@/api/getPostsByKeyword";
 import { InterfaceList } from "@/types/apiPatterns";
+import { Keyboard } from "react-native";
 
-// TODO: handle keyword
 export function AdminScreen() {
   const [posts, setPosts] = useState<PostInterface[]>([]);
   const [keyword, setKeyword] = useState<string>("");
@@ -36,15 +36,16 @@ export function AdminScreen() {
   const requestPosts = getTeacherPosts(user.id, page);
   const getByKeyword = getPublicPostsByKeyword(keyword, page);
 
-
-  const handleKeyword = async (t: string) => {
+  const handleKeyword = (t: string) => {
     setKeyword(t);
+    setPage(1);
   };
 
   const clearKeyword = async (t: string) => {
     setKeyword("");
+    Keyboard.dismiss();
+    setPage(1);
   };
-
 
   const handleSubmit = async () => {
     let data: InterfaceList<PostInterface> | undefined;
@@ -72,11 +73,19 @@ export function AdminScreen() {
   return (
     <BaseTemplate>
       <View className="pt-6">
-        <Box className="w-full">
-          <Box className="mb-3">
+        <Box className="w-full mb-3 flex flex-row justify-between items-center">
+          <Box className="w-2/5">
             <Text>Bem vindo</Text>
             <Text className="">Professor {user.name}</Text>
           </Box>
+          <Button
+            onPress={() => navigate.to("postCreate")}
+            className="my-2 w-3/8 whitespace-nowrap"
+          >
+            Novo post
+          </Button>
+        </Box>
+        <Box>
           <SearchBar onSearch={handleKeyword} onClear={clearKeyword} />
         </Box>
       </View>

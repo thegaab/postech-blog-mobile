@@ -9,9 +9,8 @@ import SearchBar from "@/components/SearchBar";
 import { useFocusEffect } from "@react-navigation/native";
 import getPublicPostsByKeyword from "@/api/getPostsByKeyword";
 import { InterfaceList } from "@/types/apiPatterns";
-import { Keyboard, TouchableWithoutFeedback } from "react-native";
+import { Keyboard } from "react-native";
 
-// todo: handle keyword
 export function HomeScreen() {
   const [posts, setPosts] = useState<PostInterface[]>([]);
   const [keyword, setKeyword] = useState<string>("");
@@ -21,12 +20,15 @@ export function HomeScreen() {
   const requestPosts = getPublicPosts(page);
   const getByKeyword = getPublicPostsByKeyword(keyword, page);
 
-  const handleKeyword = async (t: string) => {
+  const handleKeyword = (t: string) => {
     setKeyword(t);
+    setPage(1);
   };
 
   const clearKeyword = async (t: string) => {
     setKeyword("");
+    Keyboard.dismiss();
+    setPage(1);
   };
 
   const handleSubmit = async () => {
