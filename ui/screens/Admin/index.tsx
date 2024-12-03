@@ -9,6 +9,8 @@ import getTeacherPosts from "@/api/getTeacherPosts";
 import { useSessionContext } from "@/ui/providers/authProvider";
 import { useNavigate } from "@/ui/navigation";
 import { useFocusEffect } from "@react-navigation/native";
+import getPublicPostsByKeyword from "@/api/getPostsByKeyword";
+import { InterfaceList } from "@/types/apiPatterns";
 
 // TODO: handle keyword
 export function AdminScreen() {
@@ -32,35 +34,43 @@ export function AdminScreen() {
   }
 
   const requestPosts = getTeacherPosts(user.id, page);
+  const getByKeyword = getPublicPostsByKeyword(keyword, page);
 
-  const handleKeyword = (t: string) => {
+  const handleKeyword = async (t: string) => {
     setKeyword(t);
-    setPage(1);
+  };
+
+  const clearKeyword = async (t: string) => {
+    setKeyword("");
   };
 
   const handleSubmit = async () => {
-    const data = await requestPosts.submit();
+    let data: InterfaceList<PostInterface> | undefined;
 
-    if (!data || !data.data) return;
+    if (!!keyword || keyword !== "") {
+      data = await getByKeyword.submit();
+    } else {
+      data = await requestPosts.submit();
+    }
 
+    if (!data) return;
     const updateList = posts.length >= 0 ? data.data : [...posts, ...data.data];
     setPosts(updateList);
     setMaxPages(Math.ceil(data.totalItems / data.itemsPerPage));
   };
-
   const { authenticate } = useSessionContext();
 
   useFocusEffect(
     useCallback(() => {
       authenticate();
       handleSubmit();
-    }, [page])
+    }, [page, keyword])
   );
 
   return (
     <BaseTemplate>
       <View className="pt-6">
-        <Box className="w-full">
+        <Box className="w-full mb-6">
           <Box className="mb-3">
             <Text>Bem vindo</Text>
             <Text className="">Professor {user.name}</Text>
@@ -70,7 +80,7 @@ export function AdminScreen() {
           </Button>
         </Box>
         <Box>
-          <SearchBar onSearch={handleKeyword} />
+          <SearchBar onSearch={handleKeyword} onClear={clearKeyword} />
         </Box>
       </View>
       <View className="pt-8">

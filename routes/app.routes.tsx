@@ -10,6 +10,7 @@ import CreateStudentView from "@/app/screens/StudentCreate";
 import EditPost from "@/app/screens/PostEdit";
 import CreateTeacherView from "@/app/screens/TeacherCreate";
 import EditTeacher from "@/app/screens/TeacherEdit";
+import EditStudent from "@/app/screens/StudentEdit";
 import { useSessionContext } from "@/ui/providers/authProvider";
 import CreatePostView from "@/app/screens/PostCreate";
 
@@ -21,6 +22,7 @@ export type RootStackParamList = {
   teacherEdit: { teacherId: string };
   studentList: undefined;
   studentCreate: undefined;
+  studentEdit: { studentId: string };
   login: undefined;
   post: { postId: string };
   postCreate: undefined;
@@ -52,6 +54,7 @@ export function AppRoutes() {
       {/* Student Views */}
       <Screen name="studentList" component={ListStudentView} />
       <Screen name="studentCreate" component={CreateStudentView} />
+      <Screen name="studentEdit" component={EditStudent} />
     </Navigator>
   );
 }

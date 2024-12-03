@@ -9,7 +9,9 @@ export default function getPublicPostsByKeyword(
 ) {
   const getParams = page ? `?page=${page}&limit=${perPage ?? "6"}` : "";
 
-  const req = apiRequest("GET", `/posts/${keyword}/${getParams}`);
+  const requestURL = `/posts/search/${keyword.toLowerCase()}${getParams}`;
+
+  const req = apiRequest("GET", requestURL);
 
   async function submit() {
     const res: SuccessResponse<InterfaceList<PostInterface>> =
