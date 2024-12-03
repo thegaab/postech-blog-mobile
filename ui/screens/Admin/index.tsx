@@ -1,6 +1,6 @@
 import { Box, View, Text, Button } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { PostInterface } from "@/types";
 import PublicPostPreview from "@/components/PublicPostPreview";
 import List from "@/components/List";
@@ -11,8 +11,8 @@ import { useNavigate } from "@/ui/navigation";
 import { useFocusEffect } from "@react-navigation/native";
 import getPublicPostsByKeyword from "@/api/getPostsByKeyword";
 import { InterfaceList } from "@/types/apiPatterns";
+import { Keyboard } from "react-native";
 
-// TODO: handle keyword
 export function AdminScreen() {
   const [posts, setPosts] = useState<PostInterface[]>([]);
   const [keyword, setKeyword] = useState<string>("");
@@ -36,12 +36,15 @@ export function AdminScreen() {
   const requestPosts = getTeacherPosts(user.id, page);
   const getByKeyword = getPublicPostsByKeyword(keyword, page);
 
-  const handleKeyword = async (t: string) => {
+  const handleKeyword = (t: string) => {
     setKeyword(t);
+    setPage(1);
   };
 
   const clearKeyword = async (t: string) => {
     setKeyword("");
+    Keyboard.dismiss();
+    setPage(1);
   };
 
   const handleSubmit = async () => {
