@@ -5,6 +5,7 @@ import { useState } from "react";
 import Input from "@/components/base/Input";
 import authenticate from "@/api/login";
 import { useSessionContext } from "@/ui/providers/authProvider";
+import { Keyboard } from "react-native";
 
 export function LoginScreen() {
   const [username, setUsername] = useState<string>("");
@@ -40,7 +41,7 @@ export function LoginScreen() {
             onChangeText={(v: string) => setPassword(v)}
           />
 
-          <Button onPress={() => submit()} className="mt-3">
+          <Button onPress={() => submit()} onPressIn={() => Keyboard.dismiss()} className="mt-3">
             {loginRequest.loading ? <Spinner color="white" /> : "Entrar!"}
           </Button>
         </Box>
