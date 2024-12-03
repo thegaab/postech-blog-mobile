@@ -3,10 +3,8 @@ import { getToken } from "@/ui/services/storage";
 import { useState } from "react";
 
 type RequestMethods = "GET" | "POST" | "PUT" | "DELETE";
-type RequestError = {
-  status: number;
-  message?: string;
-};
+
+const DOMAIN = "http://localhost:8080";
 
 export default function apiRequest(
   method: RequestMethods,
@@ -39,10 +37,9 @@ export default function apiRequest(
     };
 
     try {
-      const res = await fetch(
-        `https://postech-blog-api.onrender.com${path}`,
-        requestParams
-      ).then((res) => res.json());
+      const res = await fetch(`${DOMAIN}${path}`, requestParams).then((res) =>
+        res.json()
+      );
 
       setIsLoading(false);
 
