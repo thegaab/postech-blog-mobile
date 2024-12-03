@@ -1,15 +1,14 @@
 import { Box, Button, Heading } from "native-base";
 import BaseTemplate from "@/ui/templates/BaseTemplate";
 import { useCallback, useState } from "react";
-import { Student } from "@/types";
 import Text from "@/components/base/Text";
 import { Alert } from "react-native";
 import { useNavigate } from "@/ui/navigation";
 import Input from "@/components/base/Input";
-import getOneStudent from "@/api/getStudents";
 import updateStudent from "@/api/updateStudant";
 import { useFocusEffect } from "@react-navigation/native";
 import { useSessionContext } from "@/ui/providers/authProvider";
+import getOneStudent from "@/api/getStudent";
 
 interface StudentScreenProps {
   studentId: string;
@@ -28,24 +27,16 @@ export function EditStudentScreen({ studentId }: StudentScreenProps) {
   });
 
   const getStudentContent = async () => {
-    try {
-      const response = await requestCurrentData.submit();
-      const student = response.data.find((item) => item.id === studentId);
+    const student = await requestCurrentData.submit();
 
-      if (!student) {
-        Alert.alert("Erro", "Estudante não encontrado.");
-        return;
-      }
-
-      console.log("Estudante encontrado:", student);
+    if (student) {
       setName(student.name);
       setGrades(student.grades.join(", "));
-    } catch (error) {
-      console.error("Erro ao buscar os dados do estudante:", error);
-      Alert.alert("Erro", "Não foi possível carregar os dados do estudante.");
+    } else {
+      Alert.alert("Não encontramos esse aluno");
+      return;
     }
   };
-
 
   const submitUpdateData = async () => {
     const updatedStudent = await requestUpdateData.submit();

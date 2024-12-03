@@ -37,11 +37,11 @@ export default function CreateStudentScreen() {
     <BaseTemplate>
       <Box className="flex justify-center items-center h-full px-2">
         <Heading className="mb-4" colorScheme="secondary" color="primary.600">
-          Crie seu login
+          Novo aluno
         </Heading>
         <Box className="mb-8 w-full">
           <Input
-            label="name"
+            label="Nome"
             name="name"
             value={name}
             onChangeText={(v: string) => setName(v)}
