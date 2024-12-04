@@ -9,7 +9,7 @@ interface CreateTeacher {
 }
 
 export default function createTeacher(studentData: CreateTeacher) {
-  const req = apiRequest("POST", "/student", studentData);
+  const req = apiRequest("POST", "/users", studentData);
 
   async function submit() {
     const res: SuccessResponse<Teacher> = await req.submit();
